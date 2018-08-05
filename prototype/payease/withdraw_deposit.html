@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <title>首信易-提现</title>
+    <link rel="stylesheet" type="text/css" href="../css/sale.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+    <style>
+        a {
+            TEXT-DECORATION: underline
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $('#add_new').click(function () {
+                $('#shadow').show();
+                $('#add_info_box').show();
+
+            });
+
+            $('a.close_btn').click(function () {
+                $('#shadow').hide();
+                $('#add_info_box').hide();
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div class="tab_cont clearfix">
+    <div class="cont_ri" id="ri_cont">
+        <div class="sale_box">
+            <div class="cont_ri_til clearfix">
+                <div class="left_btn">
+                    <ul id="tabs_ul">
+                        <li class="cont">提现列表</li>
+                    </ul>
+                </div>
+            </div>
+      <span id="box_tab">
+      <div class="condition_a">
+        <ul class="clearfix">
+          <li>
+            <label>姓名</label>
+            <input type="text" placeholder="姓名" class="place_txt"/>
+          </li>
+          <li>
+            <label>银行卡号</label>
+            <input type="text" placeholder="银行卡号" class="place_txt"/>
+          </li>
+          <li>
+            <label>身份证号</label>
+            <input type="text" placeholder="身份证号" class="place_txt" style="width:200px;"/>
+          </li>
+        </ul>
+        <ul class="clearfix">
+          <li>
+            <label>用户注册名</label>
+            <input type="text" placeholder="用户注册名" class="place_txt"/>
+          </li>
+          <li>
+            <label>提现结果</label>
+            <select style="width:150px; margin:0 2px;">
+              <option></option>
+              <option>成&nbsp;&nbsp;功</option>
+              <option>处理中</option>
+              <option>失&nbsp;&nbsp;败</option>
+            </select>
+          </li>
+          <li>
+            <label>提现时间</label>
+            <input type="text" name="" onClick="WdatePicker()"/>
+            -
+            <input type="text" name="" onClick="WdatePicker()"/>
+          </li>
+          <li style="margin-left:0px;">
+            <button style="margin-left:50px;margin-right:20px;width:80px;">搜索</button>
+            <!--<button style="margin-left:20px;margin-right:20px;width:80px;" id="add_new">新增</button>-->
+            <button style="margin-left:20px;margin-right:50px;width:80px;">导入</button>
+            <a href="../templete/首信易-提现模板.xls" class="a">模板</a>
+          </li>
+        </ul>
+      </div>
+      <table cellpadding="0" cellspacing="0" border="0" class="order_box" id="order_tab">
+        <tr height="50">
+          <th>流水号</th>
+          <th>用户注册名</th>
+          <th>客户姓名</th>
+          <th>身份证号</th>
+          <th>银行卡号</th>
+          <th>银行名称</th>
+          <th>提现金额</th>
+          <th>提现日期</th>
+          <th class="td_last">提现结果</th>
+        </tr>
+        <tr height="45">
+          <td>111111111</td>
+          <td>chengzhicao123</td>
+          <td>成志超</td>
+          <td>110102195602031234</td>
+          <td>62220274125623</td>
+          <td>兴业银行</td>
+          <td>10000</td>
+          <td>2016-08-26 9:18</td>
+          <td class="td_last">提现成功</td>
+        </tr>
+        <tr height="45">
+          <td>111111111</td>
+          <td>chengzhicao123</td>
+          <td>成志超</td>
+          <td>110102195602031234</td>
+          <td>62220274125623</td>
+          <td>兴业银行</td>
+          <td>10000</td>
+          <td>2016-08-26 9:18</td>
+          <td class="td_last">提现成功</td>
+        </tr>
+        <tr height="45">
+          <td>111111111</td>
+          <td>chengzhicao123</td>
+          <td>成志超</td>
+          <td>110102195602031234</td>
+          <td>62220274125623</td>
+          <td>兴业银行</td>
+          <td>10000</td>
+          <td>2016-08-26 9:18</td>
+          <td class="td_last">提现成功</td>
+        </tr>
+        <tr height="45">
+          <td>111111111</td>
+          <td>chengzhicao123</td>
+          <td>成志超</td>
+          <td>110102195602031234</td>
+          <td>62220274125623</td>
+          <td>兴业银行</td>
+          <td>10000</td>
+          <td>2016-08-26 9:18</td>
+          <td class="td_last">提现成功</td>
+        </tr>
+        <tr height="45">
+          <td>111111111</td>
+          <td>chengzhicao123</td>
+          <td>成志超</td>
+          <td>110102195602031234</td>
+          <td>62220274125623</td>
+          <td>兴业银行</td>
+          <td>10000</td>
+          <td>2016-08-26 9:18</td>
+          <td class="td_last">提现成功</td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+      </table>
+      <p class="fund_page clearfix"> <span><a class="h_bg_width" href="#">首页</a> <a href="#"><i class="h_icon_prev"></i></a> <a
+              class="current" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a
+              href="#"><i class="h_icon_next"></i></a> <a class="h_bg_width" href="#">末页</a></span> </p>
+      </span></div>
+    </div>
+</div>
+
+
+<div id="shadow" class="shadow" style="z-index: 100"></div>
+<div id="add_info_box" class="edit_box" style="left: 30%; top: 20%;">
+  <h2 style="text-align: center; font-size: 16px;">新增提现信息<a href="javascript:;"  class="close_btn"><img style="margin-top: 5px;" src="../images/xx.png"/></a></h2>
+  <form>
+    <table id="new_user_table" cellpadding="0" cellspacing="0" border="0" width="698" class="edit_table">
+      <tr height="45">
+        <td><label>用户注册名：</label>
+          <input name="user" type="text" value="100023"/>
+        </td>
+        <td><label>真实姓名：</label>
+          <input name="userName" type="text"/>
+        </td>
+      </tr>
+      <tr height="45">
+        <!--<td><label>身份证号：</label>-->
+          <!--<input name="id" type="text"/>-->
+        <!--</td>-->
+        <td><label>银行名称：</label>
+          <select style="width: 153px;">
+            <option>&nbsp;</option>
+            <option>招商银行</option>
+            <option>工商银行</option>
+            <option>建设银行</option>
+          </select>
+        </td>
+        <td><label>银行卡号：</label> <input name="accNum" type="text"/>
+        </td>
+      </tr>
+      <!--<tr height="45">-->
+        <!--<td><label>银行卡号：</label>-->
+          <!--<input name="accNum" type="text"/>-->
+        <!--</td>-->
+        <!--<td><label>确认卡号：</label>-->
+          <!--<input name="accNum" type="text"/>-->
+        <!--</td>-->
+      <!--</tr>-->
+      <tr height="45">
+        <td><label>提现金额：</label>
+          <input name="amount" type="text"/>
+        </td>
+      </tr>
+    </table>
+    <p class="edit_p">
+      <button id="new_user_btn" type="button">添加</button>
+    </p>
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+
+  http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd   http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--扫描组件-->
+    <context:component-scan base-package="com.yuanheng100.settlement;com.zcguodian.settlement" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"></context:exclude-filter>
+    </context:component-scan>
+
+    <!-- 数据库连接 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="jdbcUrl" value="jdbc:mysql://192.168.0.200:3306/settlement?useUnicode=true&amp;characterEncoding=UTF8"></property>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="user" value="settlement"></property>
+        <property name="password" value="yhst@203"></property>
+        <property name="minPoolSize" value="10" />
+        <property name="maxPoolSize" value="25" />
+        <property name="maxIdleTime" value="1800" />
+        <property name="maxIdleTimeExcessConnections" value="60"/>
+        <property name="idleConnectionTestPeriod" value="60" />
+    </bean>
+
+    <!-- sessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.yuanheng100.p2p.core.model"></property>
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+    </bean>
+
+    <!-- 事务管理器transactionManager -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 映射mybatis的mapper包-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="
+        com.yuanheng100.settlement.common.mapper;
+        com.yuanheng100.settlement.unspay.mapper;
+        com.yuanheng100.settlement.chanpay.mapper;
+        com.yuanheng100.settlement.payease.mapper;
+        com.yuanheng100.settlement.ghbank.mapper;
+        com.zcguodian.settlement.unspay.mapper"/>
+    </bean>
+
+    <bean id="dataSourceUtils" class="com.yuanheng100.channel.util.DataSourceUtils" lazy-init="false">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="unspaySubContractService" class="com.yuanheng100.settlement.unspay.service.impl.SubContractServiceImpl" init-method="init" destroy-method="destroy" scope="singleton" depends-on="dataSourceUtils">
+        <property name="poolSize" value="10"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.unspay.adaptor.SubContractAdaptor"></property>
+    </bean>
+
+	<bean id="unspayPayService" class="com.yuanheng100.settlement.unspay.service.impl.PayServiceImpl" init-method="init" destroy-method="destroy" scope="singleton"  depends-on="dataSourceUtils">
+        <property name="poolSize" value="10"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.unspay.adaptor.PayAdaptor"></property>
+    </bean>
+
+    <bean id="unspayDeductService" class="com.yuanheng100.settlement.unspay.service.impl.DeductServiceImpl" init-method="init" destroy-method="destroy" scope="singleton"  depends-on="dataSourceUtils">
+        <property name="poolSize" value="10"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.unspay.adaptor.DeductAdaptor"></property>
+    </bean>
+    
+    <!-- 中城国典银生宝的service -->
+    <bean id="fourElementsPayService" class="com.zcguodian.settlement.unspay.service.impl.FourElementsPayServiceImpl"></bean>
+
+    <!-- 首信易的service -->
+    <bean id="payeaseCustomerService" class="com.yuanheng100.settlement.payease.service.impl.CustomerServiceImpl" init-method="init" destroy-method="destroy">
+        <property name="poolSize" value="1"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.payease.adapter.SYN001001Adapter"></property>
+    </bean>
+
+    <bean id="payeaseInvestService" class="com.yuanheng100.settlement.payease.service.impl.InvestServiceImpl" init-method="init" destroy-method="destroy">
+        <property name="poolSize" value="1"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.payease.adapter.TRS001002Adapter"></property>
+    </bean>
+
+    <bean id="payeaseCloseLoanService" class="com.yuanheng100.settlement.payease.service.impl.CloseLoanServiceImpl" init-method="init" destroy-method="destroy">
+        <property name="poolSize" value="1"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.payease.adapter.TRS001003Adapter"></property>
+    </bean>
+
+    <bean id="payeaseWithdrawService" class="com.yuanheng100.settlement.payease.service.impl.WithdrawServiceImpl" init-method="init" destroy-method="destroy">
+        <property name="poolSize" value="1"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.payease.adapter.TRS001006Adapter"></property>
+    </bean>
+
+    <bean id="payeaseTransferService" class="com.yuanheng100.settlement.payease.service.impl.TransferServiceImpl" init-method="init" destroy-method="destroy">
+        <property name="poolSize" value="1"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.payease.adapter.TRS001007Adapter"></property>
+    </bean>
+
+    <bean id="payeaseDeductService" class="com.yuanheng100.settlement.payease.service.impl.DeductServiceImpl" init-method="init" destroy-method="destroy">
+        <property name="poolSize" value="1"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.payease.adapter.TRS001008Adapter"></property>
+    </bean>
+
+    <bean id="payeaseQueryService" class="com.yuanheng100.settlement.payease.service.impl.QueryServiceImpl" init-method="init" destroy-method="destroy">
+        <property name="poolSize" value="1"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.yuanheng100.settlement.payease.adapter.TRS001010Adapter"></property>
+    </bean>
+
+    <bean id="payeaseSequenceIdService" class="com.yuanheng100.settlement.payease.service.impl.SequenceIdServiceImpl">
+    </bean>
+
+    <bean id="idCardVerifyService" class="com.yuanheng100.settlement.payease.service.impl.IdCardVerifyServiceImpl"></bean>
+    <bean id="recordService" class="com.yuanheng100.settlement.payease.service.impl.MessageRecordServiceImpl"></bean>
+
+    <bean id="payeaseRechargeService" class="com.yuanheng100.settlement.payease.service.impl.RechargeServiceImpl"></bean>
+
+    <!--畅捷通Service-->
+    <bean id="chanpayRechargeService" class="com.yuanheng100.settlement.chanpay.service.impl.RechargeServiceImpl"></bean>
+    <bean id="chanpayNotifyTradeService" class="com.yuanheng100.settlement.chanpay.service.impl.NotifyTradeServiceImpl"></bean>
+    <bean id="chanpayAsynAuthenticationRequestService" class="com.yuanheng100.settlement.chanpay.service.impl.AsynAuthenticationRequestServiceImpl"></bean>
+    <bean id="chanpayAsynAuthenticationQueryService" class="com.yuanheng100.settlement.chanpay.service.impl.AsynAuthenticationQueryServiceImpl"></bean>
+    <bean id="chanpaySyncAuthenticationService" class="com.yuanheng100.settlement.chanpay.service.impl.SyncAuthenticationServiceImpl"></bean>
+    <bean id="chanpayPayService" class="com.yuanheng100.settlement.chanpay.service.impl.PayServiceImpl"></bean>
+    <bean id="chanpayPayRemoteQueryService" class="com.yuanheng100.settlement.chanpay.service.impl.PayRemoteQueryServiceImpl"></bean>
+    <bean id="chanpayPayCallbackService" class="com.yuanheng100.settlement.chanpay.service.impl.PayCallbackServiceImpl"></bean>
+    <bean id="chanpayGwNotifyService" class="com.yuanheng100.settlement.chanpay.service.impl.GwNotifyServiceImpl"></bean>
+    <bean id="chanpayBankService" class="com.yuanheng100.settlement.chanpay.service.impl.BankServiceImpl"></bean>
+
+
+    <!-- 华兴银行 -->
+    <bean id="ghbankRegisterService" class="com.yuanheng100.settlement.ghbank.service.impl.RegisterServiceImpl"></bean>
+    <bean id="ghbankRechargeService" class="com.yuanheng100.settlement.ghbank.service.impl.RechargeServiceImpl"></bean>
+    <bean id="ghbankWithdrawService" class="com.yuanheng100.settlement.ghbank.service.impl.WithdrawServiceImpl"></bean>
+    <bean id="ghbankInvestService" class="com.yuanheng100.settlement.ghbank.service.impl.InvestServiceImpl"></bean>
+    <bean id="ghbankBondTradeService" class="com.yuanheng100.settlement.ghbank.service.impl.BondTradeServiceImpl"></bean>
+    <bean id="ghbankRepayService" class="com.yuanheng100.settlement.ghbank.service.impl.RepayServiceImpl"></bean>
+    <bean id="ghBankQueryBalanceService" class="com.yuanheng100.settlement.ghbank.service.impl.QueryBalanceSeviceImpl"></bean>
+    <bean id="ghBankLoanService" class="com.yuanheng100.settlement.ghbank.service.impl.LoanServiceImpl"></bean>
+    <bean id="ghBankCallBackService" class="com.yuanheng100.settlement.ghbank.service.impl.CallBackServiceImpl"></bean>
+    <bean id="ghBankListenerService" class="com.yuanheng100.settlement.ghbank.service.impl.ListenerServiceImpl"></bean>
+    <bean id="ghBankConfigService" class="com.yuanheng100.settlement.ghbank.service.impl.GhbankConfigServiceImpl"></bean>
+    
+    <bean id="sysStaffService" class="com.yuanheng100.settlement.common.service.impl.SysStaffServiceImpl"></bean>
+    <bean id="sysBankService" class="com.yuanheng100.settlement.common.service.impl.SysBankServiceImpl"></bean>
+    
+    <!--定时器，任务调度-->
+    <task:scheduled-tasks>
+        <task:scheduled ref="deductTask" method="doDeduct" cron="0 * * * * ?"/>
+        <task:scheduled ref="deductTask" method="doQuery" cron="0 0/5 * * * ?"/>
+        <task:scheduled ref="asynAuthenticationQueryTask" method="doQuery" cron="0/20 * * * * ?"/>
+        <task:scheduled ref="mySQLBackupTask" method="backup" cron="0 0 2 * * ?"/>
+    </task:scheduled-tasks>
+
+    <tx:annotation-driven proxy-target-class="false" transaction-manager="transactionManager"></tx:annotation-driven>
+
+    <dubbo:application name="settlement-provider"  />
+
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" check="true"/>
+
+    <!--作为提供者-->
+
+    <dubbo:protocol name="dubbo" port="20880" />
+	
+    <!--系统服务-->
+    <dubbo:service interface="com.yuanheng100.settlement.common.service.ISysStaffService"  ref="sysStaffService"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.common.service.ISysBankService"  ref="sysBankService"></dubbo:service>
+
+	<!-- 中城国典银生宝 -->
+	<dubbo:service interface="com.zcguodian.settlement.unspay.service.IFourElementsPayService" ref="fourElementsPayService" />    
+
+    <!--银生宝服务-->
+    <dubbo:service interface="com.yuanheng100.settlement.unspay.service.ISubContractService"  ref="unspaySubContractService" timeout="60000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.unspay.service.IDeductService"  ref="unspayDeductService" connections="1" callbacks="1000">
+        <dubbo:method name="deductWithCallback">
+            <dubbo:argument index="1" callback="true"></dubbo:argument>
+        </dubbo:method>
+    </dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.unspay.service.IPayService"  ref="unspayPayService"></dubbo:service>
+
+    <!-- 畅捷通服务 -->
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.IRechargeService" ref="chanpayRechargeService" connections="1" callbacks="1000" timeout="10000">
+        <dubbo:method name="getRechargeUrl">
+            <dubbo:argument type="com.yuanheng100.settlement.chanpay.callback.IRechargeCallbackListener" callback="true"></dubbo:argument>
+        </dubbo:method>
+    </dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.INotifyTradeService"  ref="chanpayNotifyTradeService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.IAsynAuthenticationRequestService" ref="chanpayAsynAuthenticationRequestService" connections="1" callbacks="1000" timeout="10000">
+        <dubbo:method name="authenticate">
+            <dubbo:argument type="com.yuanheng100.settlement.chanpay.callback.IAsynAuthenticationCallbackListener" callback="true" />
+        </dubbo:method>
+    </dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.IAsynAuthenticationQueryService" ref="chanpayAsynAuthenticationQueryService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.ISyncAuthenticationService" ref="chanpaySyncAuthenticationService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.IPayService" ref="chanpayPayService"  connections="1" callbacks="1000" timeout="10000">
+        <dubbo:method name="pay">
+            <dubbo:argument type="com.yuanheng100.settlement.chanpay.callback.IPayCallbackListener" callback="true"></dubbo:argument>
+        </dubbo:method>
+    </dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.IPayRemoteQueryService" ref="chanpayPayRemoteQueryService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.IPayCallbackService" ref="chanpayPayCallbackService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.IGwNotifyService" ref="chanpayGwNotifyService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.chanpay.service.IBankService" ref="chanpayBankService" timeout="10000"></dubbo:service>
+
+    <!--首信易服务-->
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.ICustomerService" ref="payeaseCustomerService" connections="1" callbacks="1000" timeout="10000">
+        <dubbo:method name="bindBankCard">
+            <dubbo:argument type="com.yuanheng100.settlement.payease.callback.IBindBankCardCallbackListener" callback="true"></dubbo:argument>
+        </dubbo:method>
+    </dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.IInvestService" ref="payeaseInvestService"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.ICloseLoanService" ref="payeaseCloseLoanService" connections="1" callbacks="1000">
+        <dubbo:method name="closeLoan">
+            <dubbo:argument type="com.yuanheng100.settlement.payease.callback.ICloseLoanCallbackListener" callback="true"></dubbo:argument>
+        </dubbo:method>
+    </dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.IWithdrawService" ref="payeaseWithdrawService" connections="1" callbacks="1000">
+        <dubbo:method name="withdrawFromLendAccount">
+            <dubbo:argument type="com.yuanheng100.settlement.payease.callback.IWithdrawCallbackListener" callback="true"></dubbo:argument>
+        </dubbo:method>
+    </dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.ITransferService" ref="payeaseTransferService"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.IDeductService" ref="payeaseDeductService"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.IQueryService" ref="payeaseQueryService"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.IIdCardVerifyService" ref="idCardVerifyService"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.ISequenceIdService" ref="payeaseSequenceIdService"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.IMessageRecordService" ref="recordService"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.payease.service.IRechargeService" ref="payeaseRechargeService" connections="1" callbacks="1000">
+        <dubbo:method name="getRechargeModel">
+            <dubbo:argument type="com.yuanheng100.settlement.payease.callback.IRechargeCallbackListener" callback="true"></dubbo:argument>
+        </dubbo:method>
+    </dubbo:service>
+    
+    <!--华兴银行-->
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.IRegisterService" ref="ghbankRegisterService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.IRechargeService" ref="ghbankRechargeService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.IWithdrawService" ref="ghbankWithdrawService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.IInvestService" ref="ghbankInvestService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.IBondTradeService" ref="ghbankBondTradeService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.IRepayService" ref="ghbankRepayService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.ILoanService" ref="ghBankLoanService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.ICallBackService" ref="ghBankCallBackService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.IListenerService" ref="ghBankListenerService" timeout="10000"></dubbo:service>
+    <dubbo:service interface="com.yuanheng100.settlement.ghbank.service.IGhbankConfigService" ref="ghBankConfigService" timeout="10000"></dubbo:service>
+</beans>

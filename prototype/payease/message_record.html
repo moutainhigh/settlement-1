@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<title>首信易-报文管理</title>
+<link rel="stylesheet" type="text/css" href="../css/sale.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+<body>
+<div class="tab_cont clearfix">
+  <div class="cont_ri" id="ri_cont">
+    <div class="sale_box">
+      <div class="cont_ri_til clearfix">
+        <div class="left_btn">
+          <ul id="tabs_ul">
+            <li class="cont">报文列表</li>
+          </ul>
+        </div>
+      </div>
+      <span id="box_tab">
+      <!--<div class="condition_a">-->
+        <!--<ul class="clearfix">-->
+          <!--<li>-->
+            <!--<label>姓名</label>-->
+            <!--<input type="text" placeholder="姓名" class="place_txt" />-->
+          <!--</li>-->
+          <!--<li>-->
+            <!--<label>银行卡号</label>-->
+            <!--<input type="text" placeholder="银行卡号" class="place_txt" />-->
+          <!--</li>-->
+          <!--<li>-->
+            <!--<label>身份证号</label>-->
+            <!--<input type="text" placeholder="身份证号" class="place_txt" style="width:200px;"/>-->
+          <!--</li>-->
+        <!--</ul>-->
+        <!--<ul class="clearfix">-->
+          <!--<li>-->
+            <!--<label>用户注册名</label>-->
+            <!--<input type="text" placeholder="用户注册名" class="place_txt" />-->
+          <!--</li>-->
+          <!--<li>-->
+            <!--<label>提现结果</label>-->
+            <!--<select style="width:150px; margin:0 2px;">-->
+              <!--<option></option>-->
+              <!--<option>成&nbsp;&nbsp;功</option>-->
+              <!--<option>处理中</option>-->
+              <!--<option>失&nbsp;&nbsp;败</option>-->
+            <!--</select>-->
+          <!--</li>-->
+          <!--<li>-->
+            <!--<label>提现时间</label>-->
+            <!--<input type="text" name="" onClick="WdatePicker()" />-->
+            <!-- - -->
+            <!--<input type="text" name="" onClick="WdatePicker()" />-->
+          <!--</li>-->
+          <!--<li style="margin-left:0px;">-->
+            <!--<button style="margin-left:50px;margin-right:20px;width:80px;">搜索</button>-->
+            <!--<button style="margin-left:20px;margin-right:50px;width:80px;">导入</button>-->
+          <!--</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+      <table cellpadding="0" cellspacing="0" border="0" class="order_box" id="order_tab">
+        <tr height="50">
+          <th>用户ID</th>
+          <th>证件类型</th>
+          <th>身份证号</th>
+          <th>真实姓名</th>
+          <th>开户行名称</th>
+          <th>银行账号</th>
+          <th>账号类型</th>
+          <th>向首信易发起请求时间</th>
+          <th>首信易返回码</th>
+          <th>首信易返回结果</th>
+          <th>首信易返回时间</th>
+          <th class="td_last">用户操作码</th>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+        <tr height="45">
+          <td>111</td>
+          <td>身份证</td>
+          <td class="gap"><em>123456</em><em>78912345</em>6123</td>
+          <td>张三</td>
+          <td>招商银行</td>
+          <td class="gap"><em>6211</em><em>1122</em><em>2233</em>3331</td>
+          <td></td>
+          <td>2016-12-22 10:11</td>
+          <td>0000</td>
+          <td>操作成功</td>
+          <td>2016-12-22 10:13</td>
+          <td class="td_last">提现</td>
+        </tr>
+      </table>
+      <p class="fund_page clearfix"> <span><a class="h_bg_width" href="#">首页</a> <a href="#"><i class="h_icon_prev"></i></a> <a class="current" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#"><i class="h_icon_next"></i></a> <a class="h_bg_width" href="#">末页</a></span> </p>
+      </span> </div>
+  </div>
+</div>
+</body>
+</html>

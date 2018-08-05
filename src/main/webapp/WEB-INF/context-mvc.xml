@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:task="http://www.springframework.org/schema/task"
+  xsi:schemaLocation=
+  "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+  http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+  http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+  
+    <!-- 对包中的所有Controller和ControllerAdvice扫描，以完成Bean创建和自动依赖注入的功能 -->
+    <!-- <context:component-scan base-package="com" scoped-proxy="targetClass" use-default-filters="false"> -->
+    <context:component-scan base-package="com.yuanheng100.settlement.common;com.yuanheng100.settlement.chanpay;com.yuanheng100.settlement.unspay;com.yuanheng100.settlement.payease;com.yuanheng100.settlement.ghbank;com.zcguodian.settlement.unspay" scoped-proxy="targetClass" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:include-filter>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"></context:include-filter>
+    </context:component-scan>
+    
+    <!-- 注解支持 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"></bean>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <array>
+                        <value>WriteMapNullValue</value>
+                        <value>WriteNullStringAsEmpty</value>
+                    </array>
+                </property>
+                <property name="filters">
+                    <array>
+                        <bean class="com.yuanheng100.settlement.common.filter.LongValueJsonFilter"></bean>
+                    </array>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    
+    
+
+    <!-- mvc:interceptors>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.yuanheng100.settlement.common.interceptor.IPInterceptor"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/code"/>
+            <mvc:exclude-mapping path="/unspay/deductCallback"/>
+            <mvc:exclude-mapping path="/unspay/payCallback"/>
+            <mvc:exclude-mapping path="/chanpay/q20008/notifyTrade"/>
+            <mvc:exclude-mapping path="/chanpay/gw/notify"/>
+            <mvc:exclude-mapping path="/payease/syn001001/bindCard"/>
+            <mvc:exclude-mapping path="/payease/trs001003/invest"/>
+            <mvc:exclude-mapping path="/payease/trs001008/deduct"/>
+            <mvc:exclude-mapping path="/payease/trs001006/withdraw"/>
+            <mvc:exclude-mapping path="/payease/recharge/rechargeCallBack"/>
+            <mvc:exclude-mapping path="/ghbank/callback/return"/>
+            <mvc:exclude-mapping path="/ghbank/callback/ogw0014t"/>
+            <mvc:exclude-mapping path="/ghbank/callback/ogw0015t"/>
+            <bean class="com.yuanheng100.settlement.common.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors-->
+
+ 
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>52428800</value>
+        </property>
+        <property name="maxInMemorySize">
+            <value>4096</value>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <mvc:resources mapping="/images/**" location="/images" />
+    <mvc:resources mapping="/css/**" location="/css" />
+    <mvc:resources mapping="/js/**" location="/js" />
+    <mvc:resources mapping="/" location="/index.jsp" />
+    
+    <!-- <import resource="classpath:applicationContext-consumer.xml"/> -->
+
+</beans>

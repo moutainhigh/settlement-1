@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <title>结算-首页</title>
+    <link rel="stylesheet" type="text/css" href="../css/sale.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+    <script>
+
+        function p_click(o,id) {
+            o.click();
+            var d = document.getElementById('iframe').document.getElementsByClassName('click_td');
+//            for (var i in d){
+//                console.log(d[i].name);
+//                if(d[i].html() == o){
+//                    d[i].click();
+//                }
+//            }
+        }
+
+
+        $(function () {
+            menuFix();//鼠标移动效果
+            //点击子菜单效果
+            $('#nav li ul li a').click(function () {
+                $('#nav li ul li a').removeClass("on");
+                $(this).addClass('on');
+            });
+        });
+
+        var LastLeftID;
+
+        function menuFix() {
+            var obj = document.getElementById("nav").getElementsByTagName("li");
+
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].onmouseover = function () {
+                    this.className += (this.className.length > 0 ? " " : "") + "sfhover";
+                }
+                obj[i].onMouseDown = function () {
+                    this.className += (this.className.length > 0 ? " " : "") + "sfhover";
+                }
+                obj[i].onMouseUp = function () {
+                    this.className += (this.className.length > 0 ? " " : "") + "sfhover";
+                }
+                obj[i].onmouseout = function () {
+                    this.className = this.className.replace(new RegExp("( ?|^)sfhover\\b"), "");
+                }
+            }
+        }
+        function DoMenu(emid) {
+            var obj = document.getElementById(emid);
+            obj.className = (obj.className.toLowerCase() == "expanded" ? "collapsed" : "expanded");
+            if ((LastLeftID != null) && (LastLeftID != "") && (emid != LastLeftID)) //关闭上一个Menu
+            {
+                document.getElementById(LastLeftID).className = "collapsed";
+            }
+            LastLeftID = emid;
+        }
+
+    </script>
+</head>
+
+<body style="height:100%">
+<div class="tab_cont clearfix">
+    <div class="cont_les clearfix" style="z-index:1"><img src="../images/logo2.png"/>
+        <ul id="nav">
+            <li><a href="settlement.html">首页</a></li>
+            <li><a href="javascript:;" onclick="DoMenu('ChildMenu1')">首信易</a>
+                <ul id="ChildMenu1" class="collapsed">
+                    <li><a href="../payease/idcard_verify.html" target="iframe">实名认证</a></li>
+                    <li><a  href="../payease/establish_an_account.html" target="iframe"><span id="linka">账户</span></a></li>
+                    <li><a href="../payease/transfer_accounts.html" target="iframe">转账</a></li>
+                    <li><a href="../payease/deduct.html" target="iframe">代扣</a></li>
+                    <li><a href="../payease/withdraw_deposit.html" target="iframe">提现</a></li>
+                    <li><a href="../payease/batch_query.html" target="iframe">批量查询</a></li>
+                    <li><a href="../payease/message_record.html" target="iframe">报文管理</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:;" onclick="DoMenu('ChildMenu2')">银生宝</a>
+                <ul id="ChildMenu2" class="collapsed">
+                    <li><a href="../unspay/sub_contract_upload.html" target="iframe">子协议导入</a></li>
+                    <li><a href="../unspay/sub_contract_list.html" target="iframe">子协议查询</a></li>
+                    <li><a href="../unspay/deduct_upload.html" target="iframe">代扣导入</a></li>
+                    <li><a href="../unspay/deduct_list.html" target="iframe">代扣查询</a></li>
+                    <li><a href="../unspay/report.html" target="iframe">报表</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:;" onclick="DoMenu('ChildMenu3')">畅捷通</a>
+                <ul id="ChildMenu3" class="collapsed">
+                    <li><a href="../chanpay/upload.html" target="iframe">导入</a></li>
+                    <li><a href="../chanpay/pay.html" target="iframe">支付</a></li>
+                    <li><a href="../chanpay/deduct.html" target="iframe">代扣</a></li>
+                    <li><a href="../chanpay/report.html" target="iframe">报表</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:;" onclick="DoMenu('ChildMenu4')">统计</a>
+                <ul id="ChildMenu4" class="collapsed">
+                    <li><a href="../statistics/list.html" target="iframe">搜索列表</a></li>
+                    <li><a href="../statistics/report.html" target="iframe">报表</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:;" onclick="DoMenu('ChildMenu5')">系统管理</a>
+                <ul id="ChildMenu5" class="collapsed">
+                    <li><a href="../system/manage.html" target="iframe">员工</a></li>
+                    <li><a href="../system/setting.html" target="iframe">设置</a></li>
+                </ul>
+            </li>
+        </ul>
+        <p class="set_btn"><a href="#">张三</a> | <a href="#">退出</a></p>
+    </div>
+
+    <iframe src="index.html" id="iframe" height="99%" width="100%" style="z-index:-1;" frameborder="0" marginheight="0"
+            marginwidth="0" name="iframe"/>
+
+</div>
+
+<div id="shadow"></div>
+<div id="shadow_img"></div>
+</body>
+
+</html>

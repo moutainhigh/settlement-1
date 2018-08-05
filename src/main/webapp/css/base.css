@@ -1,0 +1,29 @@
+/* CSS Document */
+html{ font-size:62.5%; width:100%}
+body{ font-family: STHeiti,"Microsoft Yahei", "微软雅黑", tahoma,arial,'Hiragino Sans GB',宋体b8b\4f53,sans-serif;color:#606060; background:#fff;}
+a{ text-decoration:none;}
+ul{ list-style:none;}
+img{ border:none;}
+*{ margin:0; padding:0;}
+.clearfix:after{ content:"."; display:block; clear:both; height:0; overflow:hidden;}
+.clearfix{ zoom:1;}
+.clear{ clear:both;}
+
+
+.login_bg_bg{ background:url(../images/bg1.png) no-repeat; margin:0 auto; width:525px; height:80px;}
+.login_bg{ width:100%; padding:100px 0;}
+.login_box{ width:500px; margin:60px auto; border:1px solid #a0b7c5; border-radius:5px;}
+.login_box_le{ width:154px; float:left; border-right:1px solid #b2bfc5; text-align:center;}
+.login_box_le h2{ height:55px; background:#13689e; border-bottom:1px solid #7ca8c7; border-radius:5px 0 0 0;}
+.login_box_le section{ background:#dbe5ed; padding:29px 0 17px 0;}
+.login_box_ri{ width:345px; float:right;height:210px;}
+.login_box_ri h2{ height:55px; background:#13689e; border-radius:0 5px 0 0; border-bottom:1px solid #7ca8c7; font-size:22px; color:#fff; line-height:55px; padding-left:15px;}
+.login_box_ri div{ background:#d7e2eb; padding:10px 0 0 0; height:160px;}
+.login_box_ri div label{ font-size:14px; color:#2a4a61; margin:0 20px 0 15px; width:45px; float:left; height:28px; line-height:28px; padding-top:15px;}
+.login_box_ri div input{ width:150px; height:20px; line-height:20px; border:1px solid #a5b7ca; margin-top:15px; padding:4px 0 4px 10px;}
+.login_box_ri div p{ height:60px; background:url(../images/bg2.png) repeat-x; margin-top:10px;}
+.login_box_ri div p input{ float:left; width:70px; text-align:center; height:30px; line-height:30px; border:1px solid #a5b7ca; border-radius:3px; font-size:14px; color:#2a4a61; margin-left:80px; padding:0;margin-top:0;}
+.login_box_f{ height:58px; background:#033f64; width:100%; border-radius:0 0 5px 5px;}
+.login_bg_bgs{ background:url(../images/bg3.png) no-repeat; margin:0 auto; width:525px; height:80px;}
+
+.help{ font-size:16px; color:#fff; position:fixed; right:25px; bottom:25px;}

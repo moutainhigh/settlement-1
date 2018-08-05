@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<title>银生宝-子协议导入</title>
+<link rel="stylesheet" type="text/css" href="../css/sale.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		var $box_upload_list = $('#box_upload_list');
+		var $box_upload_detail = $('#box_upload_detail');
+		
+		//点击标签-->显示内容页
+		$('#tabs_ul li:eq(0)').click(function(){
+			var $cont = $('.cont');
+			$cont.each(function(index, element) {
+                $(this).attr("class","");
+            });
+			
+			$(this).attr("class","cont");
+			$box_upload_list.show();
+			$box_upload_detail.hide();
+		});
+		//点击导入文件名，显示详情页
+		var $click_td = $('.click_td');
+		var $tabs_ul = $('#tabs_ul');
+		$click_td.each(function(index, element) {
+       		$(this).click(function(){
+				var li_name = $(this).html();
+				var $tabs_ul_li = $('#tabs_ul li');
+				var exist = false;
+				for(var i = 0 ; i < $tabs_ul_li.length ; i ++){
+					var $current_li = $($tabs_ul_li[i]);
+					if($current_li.attr('data-name')==li_name){
+						exist = true;
+						break;
+					}
+				}
+				if(exist){
+					$('#tabs_ul li[data-name="'+li_name+'"]').click();
+					return;
+				}
+				var short_name = li_name.length > 8 ? li_name.substr(0,5)+"...":li_name;
+				var $li_lable = $("<li class='cont' data-name='"+li_name+"'>"+short_name+"<i class='close'>X</i></li>");
+				//加入新创建的lable
+				$tabs_ul.append($li_lable);
+				$('#tabs_ul li:not(:eq(0))').unbind('click');
+				$('#tabs_ul li:not(:eq(0))').click(function(){
+					var $cont = $('.cont');
+					$cont.each(function(index, element) {
+						$(this).attr("class","");
+					});
+					
+					$(this).attr("class","cont");
+					$box_upload_list.hide();
+					$box_upload_detail.show();
+				});
+				$('#tabs_ul li[data-name="'+li_name+'"]').click();
+				//关闭标签
+				var close_list = $('.close');
+				for (var j = 0; j < close_list.length; j++) {
+					close_list[j].onclick = function(event) {
+						if (this.parentNode.getAttribute('class') == 'cont') {
+							$('#tabs_ul li:eq(0)').click();
+						}
+						this.parentNode.remove();
+						if (event) //停止事件冒泡
+							event.stopPropagation();
+						else
+							window.event.cancelBubble =true;
+					}
+				}   
+		    });	
+        });
+		
+		$("#upload_button").click(function(){
+			$("#upload_input").click();	
+		});
+		
+		
+	});
+</script>
+</head>
+
+<body>
+<div class="tab_cont clearfix">
+  <div class="cont_ri" id="ri_cont">
+    <div class="sale_box">
+      <div class="cont_ri_til clearfix">
+        <div class="left_btn">
+          <ul id="tabs_ul">
+            <li class="cont">子协议导入</li>
+          </ul>
+        </div>
+      </div>
+      <span id="box_upload_list">
+      <div class="condition_a">
+        <ul class="clearfix">
+          <li>
+            <label>文件名称</label>
+            <input type="text" placeholder="导入文件名称" class="place_txt" />
+          </li>
+          <li>
+            <label>导入时间</label>
+            <input type="text" name="" onClick="WdatePicker()" />
+            -
+            <input type="text" name="" onClick="WdatePicker()" />
+          </li>
+          <li style="margin-left:50px;">
+            <button style="margin-left:20px;margin-right:10px;">搜素</button>
+          </li>
+          <li style="width:300px;">
+            <button id="upload_button">选择上传文件</button>
+          	<input id="upload_input" type="file" accept="application/msexcel,xls" style="display:none;"/>
+          </li>
+        </ul>
+      </div>
+      <table cellpadding="0" cellspacing="0" border="0" class="order_box" id="order_tab">
+        <tr height="50">
+          <th>文件名称</th>
+          <th>导入时间</th>
+          <th>操作人</th>
+          <th>总计</th>
+          <th>未通过</th>
+          <th class="td_last">成功 | 失败 | 处理中</th>
+        </tr>
+        <tr height="45">
+          <td class="click_td">201505050005.xlsx</td>
+          <td>2015-5-6&nbsp;&nbsp;15:23</td>
+          <td>成志超</td>
+          <td>36</td>
+          <td class="notaudited">5</td>
+          <td class="td_last"><strong class="success">20</strong> | <strong class="failur">1</strong> | <strong class="going">10</strong></td>
+        </tr>
+        <tr height="45">
+          <td class="click_td">201505050004.xlsx</td>
+          <td>2015-5-6&nbsp;&nbsp;11:55</td>
+          <td>成志超</td>
+          <td>47</td>
+          <td class="notaudited">1</td>
+          <td class="td_last"><strong class="success">26</strong> | <strong class="failur">0</strong> | <strong class="going">20</strong></td>
+        </tr>
+        <tr height="45">
+          <td class="click_td">201505050003.xlsx</td>
+          <td>2015-5-6&nbsp;&nbsp;09:18</td>
+          <td>成志超</td>
+          <td>56</td>
+          <td class="notaudited">3</td>
+          <td class="td_last"><strong class="success">29</strong> | <strong class="failur">2</strong> | <strong class="going">12</strong></td>
+        </tr>
+        <tr height="45">
+          <td class="click_td">201505050002.xlsx</td>
+          <td>2015-5-5&nbsp;&nbsp;10:30</td>
+          <td>成志超</td>
+          <td>50</td>
+          <td class="notaudited"></td>
+          <td class="td_last"><strong class="success">35</strong> | <strong class="failur">0</strong> | <strong class="going">15</strong></td>
+        </tr>
+        <tr height="45">
+          <td class="click_td">201505050001.xlsx</td>
+          <td>2015-5-5&nbsp;&nbsp;10:25</td>
+          <td>成志超</td>
+          <td>30</td>
+          <td class="notaudited">2</td>
+          <td class="td_last"><strong class="success">17</strong> | <strong class="failur">1</strong> | <strong class="going">10</strong></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+      </table>
+      <p class="fund_page clearfix"> <span><a class="h_bg_width" href="#">首页</a> <a href="#"><i class="h_icon_prev"></i></a> <a class="current" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#"><i class="h_icon_next"></i></a> <a class="h_bg_width" href="#">末页</a></span> </p>
+      </span> <span id="box_upload_detail" class="clearfix" style="display:none;">
+      <div class="detail_list_til clearfix">
+        <ul>
+          <li>文件名：
+            <label>201505050005.xlsx</label>
+          </li>
+          <li>待审核数：
+            <label>5</label>
+          </li>
+          <li>已审核数：
+            <label>31</label>
+          </li>
+          <li>总计：
+            <label>36</label>
+          </li>
+        </ul>
+      </div>
+      <table cellpadding="0" cellspacing="0" border="0" class="order_box">
+        <tr height="50">
+          <th>子协议编号</th>
+          <th>发送时间</th>
+          <th>进件编号</th>
+          <th>客户姓名</th>
+          <th>身份证号</th>
+          <th>手机号码</th>
+          <th>银行卡号</th>
+          <th>开始时间</th>
+          <th>结束时间</th>
+          <th>扣款频率</th>
+          <th>扣款次数限制</th>
+          <th class="td_last">状态</th>
+        </tr>
+        <tr height="45">
+          <td>201505050001</td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050001</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last success">成功</td>
+        </tr>
+        <tr height="45">
+          <td>201505050002</td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050002</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last success">成功</td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050003</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last failur">失败</td>
+        </tr>
+        <tr height="45">
+          <td>201505050004</td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050004</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last success">成功</td>
+        </tr>
+        <tr height="45">
+          <td>201505050005</td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050005</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last success">成功</td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td>201505050006</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last going">处理中</td>
+        </tr>
+        <tr height="45">
+          <td>201505050007</td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050007</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last success">成功</td>
+        </tr>
+        <tr height="45">
+          <td>201505050008</td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050008</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last success">成功</td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050009</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last failur">失败</td>
+        </tr>
+        <tr height="45">
+          <td>201505050010</td>
+          <td>2015-05-05&nbsp;&nbsp;10:11</td>
+          <td>201505050010</td>
+          <td>成志超</td>
+          <td>11010219560203****</td>
+          <td>135****6090</td>
+          <td>622202*****5623</td>
+          <td>2015-5-5</td>
+          <td>2016-5-5</td>
+          <td>月</td>
+          <td>1</td>
+          <td class="td_last success">成功</td>
+        </tr>
+      </table>
+      <p class="fund_page clearfix"> <span><a class="h_bg_width" href="#">首页</a> <a href="#"><i class="h_icon_prev"></i></a> <a class="current" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#"><i class="h_icon_next"></i></a> <a class="h_bg_width" href="#">末页</a></span> </p>
+      </span> </div>
+  </div>
+</div>
+</body>
+</html>

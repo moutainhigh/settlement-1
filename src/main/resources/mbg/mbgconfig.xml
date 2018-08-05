@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry location="mysql-connector-java-5.1.32.jar" />
+
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="false" />
+		</commentGenerator>
+
+		<!-- JDBC 连接信息 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/settlement" userId="settlement"
+			password="yhst@203">
+		</jdbcConnection>
+		
+
+		<javaModelGenerator targetPackage="com.yuanheng100.settlement.ghbank.model.dao" targetProject="../../java" >
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator> 
+
+		<sqlMapGenerator targetPackage="com.yuanheng100.settlement.ghbank.mapper" targetProject="../../java">
+        	<property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+         
+		<javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.yuanheng100.settlement.ghbank.mapper" targetProject="../../java" >
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        
+        <table tableName="ghbank_ogw00075" domainObjectName="GhbankOGW00065"><property name="useActualColumnNames" value="true" /></table>
+        <!--
+        <table tableName="ghbank_ogw00075" domainObjectName="GhbankOGW00075"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00074_repayItem" domainObjectName="GhbankOGW00074RepayItem"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00074" domainObjectName="GhbankOGW00074"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00073" domainObjectName="GhbankOGW00073"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00067" domainObjectName="GhbankOGW00067"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00060" domainObjectName="GhbankOGW00060"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00051" domainObjectName="GhbankOGW00051"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00061" domainObjectName="GhbankOGW00061"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00042" domainObjectName="ghbankOGW00042"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00044" domainObjectName="GhbankOGW00044"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00045" domainObjectName="GhbankOGW00045"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00047" domainObjectName="GhbankOGW00047"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="ghbank_ogw00052" domainObjectName="GhbankOGW00052"><property name="useActualColumnNames" value="true" /></table>
+        
+        
+        <table tableName="payease_syn001001" domainObjectName="SyncAccountReq"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="payease_trs001002" domainObjectName="TRS001002"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="payease_trs001003" domainObjectName="TRS001003"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="payease_trs001008" domainObjectName="TRS001008"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="sys_bank" domainObjectName="SysBank"><property name="useActualColumnNames" value="true" /></table>
+         -->
+		
+	</context>
+</generatorConfiguration>  

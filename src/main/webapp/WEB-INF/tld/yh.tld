@@ -1,0 +1,29 @@
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <description>YHTL 1.1 core library</description>
+    <display-name>YHTL core</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>yh</short-name>
+    <uri>http://yuanheng100.com/jsp/yhtl/core</uri>
+
+    <tag>
+        <description>
+            根据银行代码显示银行名称，若银行有简称，则显示简称，否则显示全称
+        </description>
+        <name>bank</name>
+        <tag-class>com.yuanheng100.settlement.common.tag.BankTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <description>
+                用于获取银行名称的银行代码
+            </description>
+            <name>bankCode</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>

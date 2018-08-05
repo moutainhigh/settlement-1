@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<title>首信易-转账</title>
+<link rel="stylesheet" type="text/css" href="../css/sale.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $('#add_new').click(function(){
+        $('#shadow').show();
+        $('#add_info_box').show();
+
+      });
+
+      $('a.close_btn').click(function () {
+        $('#shadow').hide();
+        $('#add_info_box').hide();
+      });
+    });
+  </script>
+</head>
+
+<body>
+<div class="tab_cont clearfix">
+  <div class="cont_ri" id="ri_cont">
+    <div class="sale_box">
+      <div class="cont_ri_til clearfix">
+        <div class="left_btn">
+          <ul id="tabs_ul">
+            <li class="cont">转账列表</li>
+          </ul>
+        </div>
+      </div>
+      <span id="box_tab">
+      <div class="condition_a">
+        <ul class="clearfix">
+          <li>
+            <label>转出方注册名</label>
+            <input type="text" placeholder="转出方注册名" class="place_txt" />
+          </li>
+          <li>
+            <label>转出方姓名</label>
+            <input type="text" placeholder="转出方姓名" class="place_txt" style="width:100px;"/>
+          </li>
+          <li>
+            <label>转账时间</label>
+            <input type="text" name="" onClick="WdatePicker()" />
+            -
+            <input type="text" name="" onClick="WdatePicker()" />
+          </li>
+        </ul>
+        <ul class="clearfix">
+          <li>
+            <label>转入方注册名</label>
+            <input type="text" placeholder="转入方注册名" class="place_txt" />
+          </li>
+          <li>
+            <label>转入方姓名</label>
+            <input type="text" placeholder="转入方姓名" class="place_txt" style="width:100px;"/>
+          </li>
+          <li>
+            <label>转账结果</label>
+            <select style="width:150px; margin:0 2px;">
+              <option></option>
+              <option>成&nbsp;&nbsp;功</option>
+              <option>处理中</option>
+              <option>失&nbsp;&nbsp;败</option>
+            </select>
+          </li>
+          <li style="margin-left:0px;">
+            <button style="margin-left:50px;margin-right:20px;width:80px;">搜索</button>
+            <button style="margin-left:20px;margin-right:20px;width:80px;" id="add_new">新增</button>
+            <button style="margin-left:20px;margin-right:50px;width:80px;">导入</button>
+            <a href="../templete/首信易-转账模板.xls" style="text-decoration: underline;">模板</a>
+          </li>
+        </ul>
+      </div>
+      <table cellpadding="0" cellspacing="0" border="0" class="order_box" id="order_tab">
+        <tr height="25">
+          <th rowspan="2">流水号</th>
+          <th colspan="2">转出方</th>
+          <th rowspan="2">转账金额</th>
+          <th rowspan="2">转账日期</th>
+          <th colspan="2">转入方</th>
+          <th rowspan="2" class="td_last">转账结果</th>
+        </tr>
+        <tr height="25" style="">
+          <th width="15%">注册名</th>
+          <th width="15%">姓名</th>
+          <th width="15%">注册名</th>
+          <th width="15%">姓名</th>
+        </tr>
+        <tr height="45">
+          <td>1111111111</td>
+          <td>liuqiang1122</td>
+          <td>刘备</td>
+          <td>10000</td>
+          <td>2015-5-5 10:25</td>
+          <td>chengzhicao012</td>
+          <td>赵子龙</td>
+          <td class="td_last">成功</td>
+        </tr>
+        <tr height="45">
+          <td>1111111111</td>
+          <td>liuqiang1122</td>
+          <td>刘备</td>
+          <td>10000</td>
+          <td>2015-5-5 10:25</td>
+          <td>chengzhicao012</td>
+          <td>赵子龙</td>
+          <td class="td_last">成功</td>
+        </tr>
+        <tr height="45">
+          <td>1111111111</td>
+          <td>liuqiang1122</td>
+          <td>刘备</td>
+          <td>10000</td>
+          <td>2015-5-5 10:25</td>
+          <td>chengzhicao012</td>
+          <td>赵子龙</td>
+          <td class="td_last">成功</td>
+        </tr>
+        <tr height="45">
+          <td>1111111111</td>
+          <td>liuqiang1122</td>
+          <td>刘备</td>
+          <td>10000</td>
+          <td>2015-5-5 10:25</td>
+          <td>chengzhicao012</td>
+          <td>赵子龙</td>
+          <td class="td_last">成功</td>
+        </tr>
+        <tr height="45">
+          <td>1111111111</td>
+          <td>liuqiang1122</td>
+          <td>刘备</td>
+          <td>10000</td>
+          <td>2015-5-5 10:25</td>
+          <td>chengzhicao012</td>
+          <td>赵子龙</td>
+          <td class="td_last">成功</td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+        <tr height="45">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="td_last"></td>
+        </tr>
+      </table>
+      <p class="fund_page clearfix"> <span><a class="h_bg_width" href="#">首页</a> <a href="#"><i class="h_icon_prev"></i></a> <a class="current" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#"><i class="h_icon_next"></i></a> <a class="h_bg_width" href="#">末页</a></span> </p>
+      </span> </div>
+  </div>
+</div>
+
+
+<div id="shadow" class="shadow" style="z-index: 100"></div>
+<div id="add_info_box" class="edit_box" style="left: 30%; top: 20%;">
+  <h2 style="text-align: center; font-size: 16px;">新增转账信息<a href="javascript:;"  class="close_btn"><img style="margin-top: 5px;" src="../images/xx.png"/></a></h2>
+  <form>
+    <table id="new_user_table" cellpadding="0" cellspacing="0" border="0" width="698" class="edit_table">
+      <tr height="45">
+        <td colspan="2"><label style="margin-left: 70px;">转出方</label></td>
+        <td><label class="m">|</label></td>
+        <td colspan="2"><label style="margin-left: 70px;">转入方</label></td>
+      </tr>
+      <tr height="45">
+        <td colspan="2"><label>用户注册名：</label>
+          <input name="user" type="text" value="100023" />
+        </td>
+        <td><label class="m">|</label></td>
+        <td colspan="2"><label>用户注册名：</label>
+          <input name="user" type="text" value="100023" />
+        </td>
+      </tr>
+      <tr height="45">
+        <td colspan="2"><label>真实姓名：</label> </td>
+        <td><label class="m">|</label></td>
+        <td colspan="2"><label>真实姓名：</label> </td>
+      </tr>
+      <!--<tr height="45">-->
+        <!--<td colspan="2"><label>银行名称：</label>-->
+          <!--<input name="accBank" type="text"/>-->
+        <!--</td>-->
+        <!--<td><label class="m">|</label></td>-->
+        <!--<td colspan="2"><label>银行名称：</label>-->
+          <!--<input name="accNum" type="text"/>-->
+        <!--</td>-->
+      <!--</tr>-->
+      <!--<tr height="45">-->
+        <!--<td colspan="2"><label>银行卡号：</label>-->
+          <!--<input name="id" type="text"/>-->
+        <!--</td>-->
+        <!--<td><label class="m">|</label></td>-->
+        <!--<td colspan="2"><label>银行卡号：</label>-->
+          <!--<input name="id" type="text"/>-->
+        <!--</td>-->
+      <!--</tr>-->
+      <tr>
+        <td></td>
+        <td colspan="3"><label style="margin-right: 10px;">转账金额：</label><input type="text"/>&nbsp;&nbsp;元</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="3"><label style="margin-right: 10px;">确认金额：</label><input type="text"/>&nbsp;&nbsp;元</td>
+        <td></td>
+      </tr>
+    </table>
+    <p class="edit_p">
+      <button id="new_user_btn" type="button">添加</button>
+    </p>
+  </form>
+</div>
+</body>
+</html>

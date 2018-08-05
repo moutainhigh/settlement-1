@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <title>首信易-代扣</title>
+    <link rel="stylesheet" type="text/css" href="../css/sale.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //新增代扣
+            $("#new_button").click(function () {
+                //清空数据
+                $('#shadow').show();
+                $('#user_info_box').show();
+            });
+
+            $(".close_btn,#new_user_btn").click(function () {
+                $('#shadow').hide();
+                $('#user_info_box').hide();
+            });
+
+            $("#upload_button").click(function () {
+                $("#upload_input").click();
+            });
+
+            //格式化银行卡
+            $('.bankCardNo').each(function(){
+                $(this).html(formateBankcardNo($(this).html()));
+            });
+/*            var bankCardNo = $('.bankCardNo').html();
+            bankCardNo = bankCardNo.replace(/(\d{4})(?=\d)/g,"$1"+" ");
+            $('.bankCardNo').html(bankCardNo);*/
+
+            $(".idCardNo").each(function(){
+                $(this).html(formateIdCardNo($(this).html()));
+            });
+        })
+
+        var formateBankcardNo = function(bankCardNo){
+            return bankCardNo.replace(/(\d{4})(?=\d)/g,"<bankcard style='padding-right: 4px;'>"+"$1"+"</bankcard>");
+        }
+
+        var formateIdCardNo = function(idNo){
+            return "<idcard style='padding-right: 4px;'>"+ idNo.substring(0,6) +"</idcard>" + "<idcard style='padding-right: 4px;'>"+ idNo.substring(6,14) +"</idcard>" + idNo.substring(14,19);
+        }
+
+    </script>
+</head>
+
+<body>
+<div class="tab_cont clearfix">
+    <div class="cont_ri" id="ri_cont">
+        <div class="sale_box">
+            <div class="cont_ri_til clearfix">
+                <div class="left_btn">
+                    <ul id="tabs_ul">
+                        <li class="cont">代扣列表</li>
+                    </ul>
+                </div>
+            </div>
+      <span id="box_tab">
+      <div class="condition_a">
+          <ul class="clearfix">
+              <li>
+                  <label>姓名</label>
+                  <input type="text" placeholder="姓名" class="place_txt"/>
+              </li>
+              <li>
+                  <label>银行卡号</label>
+                  <input type="text" placeholder="银行卡号" class="place_txt"/>
+              </li>
+              <li>
+                  <label>身份证号</label>
+                  <input type="text" placeholder="身份证号" class="place_txt" style="width:200px;"/>
+              </li>
+              <li style="margin-left:0px;">
+                  <button id="upload_button" style="margin-left:50px;margin-right:20px;width:80px;">导入</button>
+                  <a id="upload_templete" href="../templete/首信易-代扣模板.xls"
+                     style="margin-left:20px;text-decoration: underline;">模板</a>
+                  <input id="upload_input" type="file" accept="application/msexcel,xls" style="display:none;"/>
+              </li>
+          </ul>
+          <ul class="clearfix">
+              <li>
+                  <label>用户注册名</label>
+                  <input type="text" placeholder="用户注册名" class="place_txt"/>
+              </li>
+              <li>
+                  <label>扣款结果</label>
+                  <select style="width:150px; margin:0 2px;">
+                      <option></option>
+                      <option>成&nbsp;&nbsp;功</option>
+                      <option>处理中</option>
+                      <option>失&nbsp;&nbsp;败</option>
+                  </select>
+              </li>
+              <li>
+                  <label>扣款时间</label>
+                  <input type="text" name="" onClick="WdatePicker()"/>
+                  -
+                  <input type="text" name="" onClick="WdatePicker()"/>
+              </li>
+              <li style="margin-left:0px;">
+                  <button style="margin-left:50px;margin-right:20px;width:80px;">搜索</button>
+              </li>
+          </ul>
+      </div>
+      <table cellpadding="0" cellspacing="0" border="0" class="order_box" id="order_tab">
+          <tr height="50">
+              <th>流水号</th>
+              <th>用户注册名</th>
+              <th>客户姓名</th>
+              <th>身份证号</th>
+              <th>银行卡号</th>
+              <th>银行名称</th>
+              <th>扣款金额</th>
+              <th>扣款日期</th>
+              <th class="td_last">扣款结果</th>
+          </tr>
+          <tr height="45">
+              <td>20001</td>
+              <td>chengzhicao123</td>
+              <td>成志超</td>
+              <td class="idCardNo">110102195602031234</td>
+              <td class="bankCardNo">62220274125623</td>
+              <td>兴业银行</td>
+              <td>10000</td>
+              <td>2016-08-26 9:18</td>
+              <td class="td_last">扣款成功</td>
+          </tr>
+          <tr height="45">
+              <td>20002</td>
+              <td>chengzhicao123</td>
+              <td>成志超</td>
+              <td class="idCardNo">110102195602031234</td>
+              <td class="bankCardNo">62220274125623</td>
+              <td>兴业银行</td>
+              <td>10000</td>
+              <td>2016-08-26 9:18</td>
+              <td class="td_last">扣款成功</td>
+          </tr>
+          <tr height="45">
+              <td>20003</td>
+              <td>chengzhicao123</td>
+              <td>成志超</td>
+              <td class="idCardNo">110102195602031234</td>
+              <td class="bankCardNo">62220274125623</td>
+              <td>兴业银行</td>
+              <td>10000</td>
+              <td>2016-08-26 9:18</td>
+              <td class="td_last">扣款成功</td>
+          </tr>
+          <tr height="45">
+              <td>20004</td>
+              <td>chengzhicao123</td>
+              <td>成志超</td>
+              <td class="idCardNo">110102195602031234</td>
+              <td class="bankCardNo">62220274125623</td>
+              <td>兴业银行</td>
+              <td>10000</td>
+              <td>2016-08-26 9:18</td>
+              <td class="td_last">扣款成功</td>
+          </tr>
+          <tr height="45">
+              <td>20005</td>
+              <td>chengzhicao123</td>
+              <td>成志超</td>
+              <td class="idCardNo">110102195602031234</td>
+              <td class="bankCardNo">62220274125623</td>
+              <td>兴业银行</td>
+              <td>10000</td>
+              <td>2016-08-26 9:18</td>
+              <td class="td_last">扣款成功</td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+      </table>
+      <p class="fund_page clearfix"><span><a class="h_bg_width" href="#">首页</a> <a href="#"><i class="h_icon_prev"></i></a> <a
+              class="current" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a
+              href="#"><i class="h_icon_next"></i></a> <a class="h_bg_width" href="#">末页</a></span></p>
+      </span></div>
+    </div>
+</div>
+<div id="shadow" class="shadow" style="z-index: 100"></div>
+</body>
+</html>

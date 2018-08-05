@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+
+  http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <bean class="com.yuanheng100.settlement.common.model.LoginStaff" scope="session">
+        <aop:scoped-proxy proxy-target-class="true"></aop:scoped-proxy>
+    </bean>
+
+    <dubbo:application name="settlement-consumer"  />
+
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+
+    <!--作为消费者-->
+    
+    <!--<dubbo:reference id="weChatService" interface="com.yuanheng100.message.service.IWeChatService" lazy="true"/>-->
+    <dubbo:reference id="sysStaffService" interface="com.yuanheng100.settlement.common.service.ISysStaffService"/>
+    <dubbo:reference id="sysBankService" interface="com.yuanheng100.settlement.common.service.ISysBankService"/>
+
+    <!--首信易-->
+    <dubbo:reference id="payeaseSequenceIdService" interface="com.yuanheng100.settlement.payease.service.ISequenceIdService"/>
+    <dubbo:reference id="payeaseCustomerService" interface="com.yuanheng100.settlement.payease.service.ICustomerService"/>
+    <dubbo:reference id="payeaseQueryService" interface="com.yuanheng100.settlement.payease.service.IQueryService"/>
+    <dubbo:reference id="payeaseDeductService" interface="com.yuanheng100.settlement.payease.service.IDeductService"/>
+    <dubbo:reference id="payeaseWithdrawService" interface="com.yuanheng100.settlement.payease.service.IWithdrawService"/>
+    <dubbo:reference id="recordService" interface="com.yuanheng100.settlement.payease.service.IMessageRecordService"/>
+    <dubbo:reference id="payeaseRechargeService" interface="com.yuanheng100.settlement.payease.service.IRechargeService"/>
+    <dubbo:reference id="payeaseInvestService" interface="com.yuanheng100.settlement.payease.service.IInvestService"/>
+    <dubbo:reference id="payeaseCloseLoanService" interface="com.yuanheng100.settlement.payease.service.ICloseLoanService"/>
+
+	<!-- 中城国典银生宝 -->
+	<dubbo:reference id="fourElementsPayService" interface="com.zcguodian.settlement.unspay.service.IFourElementsPayService"/>
+	
+    <!--银生宝-->
+    <dubbo:reference id="subContractService" interface="com.yuanheng100.settlement.unspay.service.ISubContractService"/>
+    <dubbo:reference id="deductService" interface="com.yuanheng100.settlement.unspay.service.IDeductService"/>
+    <dubbo:reference id="payService" interface="com.yuanheng100.settlement.unspay.service.IPayService"/>
+    
+    <!--畅捷-->
+    <dubbo:reference id="chanpayRechargeService" interface="com.yuanheng100.settlement.chanpay.service.IRechargeService"/>
+    <dubbo:reference id="chanpayNotifyTradeService" interface="com.yuanheng100.settlement.chanpay.service.INotifyTradeService"/>
+    <dubbo:reference id="chanpaySyncAuthenticationService" interface="com.yuanheng100.settlement.chanpay.service.ISyncAuthenticationService"/>
+    <dubbo:reference id="chanpayAsynAuthenticationRequestService" interface="com.yuanheng100.settlement.chanpay.service.IAsynAuthenticationRequestService"/>
+    <dubbo:reference id="chanpayPayService" interface="com.yuanheng100.settlement.chanpay.service.IPayService"/>
+    <dubbo:reference id="chanpayPayCallbackService" interface="com.yuanheng100.settlement.chanpay.service.IPayCallbackService"/>
+    <dubbo:reference id="chanpayGwNotifyService" interface="com.yuanheng100.settlement.chanpay.service.IGwNotifyService"/>
+
+    <dubbo:reference id="idCardVerifyService" interface="com.yuanheng100.settlement.payease.service.IIdCardVerifyService"/>
+    <dubbo:reference id="transferService" interface="com.yuanheng100.settlement.payease.service.ITransferService"/>
+    
+     <!-- 华兴银行-->
+    <dubbo:reference id="ghbankRegisterService" interface="com.yuanheng100.settlement.ghbank.service.IRegisterService"/>
+    <dubbo:reference id="ghbankRechargeService" interface="com.yuanheng100.settlement.ghbank.service.IRechargeService"/>
+    <dubbo:reference id="ghbankWithdrawService" interface="com.yuanheng100.settlement.ghbank.service.IWithdrawService"/>
+    <dubbo:reference id="ghbankInvestService" interface="com.yuanheng100.settlement.ghbank.service.IInvestService"/>
+    <dubbo:reference id="ghbankBondTradeService" interface="com.yuanheng100.settlement.ghbank.service.IBondTradeService"/>
+    <dubbo:reference id="ghbankRepayService" interface="com.yuanheng100.settlement.ghbank.service.IRepayService"/>
+    <dubbo:reference id="ghbankLoanService" interface="com.yuanheng100.settlement.ghbank.service.ILoanService"/>
+    <dubbo:reference id="ghbankCallBackService" interface="com.yuanheng100.settlement.ghbank.service.ICallBackService"/>     
+    <dubbo:reference id="ghbankListenerService" interface="com.yuanheng100.settlement.ghbank.service.IListenerService"/>
+
+</beans>

@@ -1,0 +1,520 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <title>首信易-批量查询</title>
+    <link rel="stylesheet" type="text/css" href="../css/sale.css">
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+
+            var formateBankcardNo = function (bankCardNo) {
+                return bankCardNo.replace(/(\d{4})(?=\d)/g, "<bankcard style='padding-right: 4px;'>" + "$1" + "</bankcard>");
+            }
+
+            var formateIdCardNo = function (idNo) {
+                return "<idcard style='padding-right: 4px;'>" + idNo.substring(0, 6) + "</idcard>" + "<idcard style='padding-right: 4px;'>" + idNo.substring(6, 14) + "</idcard>" + idNo.substring(14, 19);
+            }
+
+
+            $('td.click_td').click(function () {
+                parent.p_click($('#linka', window.parent.document),$(this).parent().children(':eq(0)').text());
+                console.log($(this).parent().children(':eq(0)').text());
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div class="tab_cont clearfix">
+    <div class="cont_ri" id="ri_cont">
+        <div class="sale_box">
+            <div class="cont_ri_til clearfix">
+                <div class="left_btn">
+                    <ul id="tabs_ul">
+                        <li class="cont">开户列表</li>
+                    </ul>
+                </div>
+            </div>
+      <span id="box_upload_list">
+      <div class="condition_a">
+          <ul class="clearfix">
+              <li>
+                  <label>起始用户</label>
+                  <input type="text" placeholder="用户注册名" class="place_txt" style="width:160px;"/>
+              </li>
+              <li>
+                  <label>结束用户</label>
+                  <input type="text" placeholder="用户注册名" class="place_txt" style="width:160px;"/>
+              </li>
+              <li style="margin-top: 10px; ">
+                  <button style="margin-left:100px; width:80px;">搜索</button>
+              </li>
+          </ul>
+      </div>
+      <table cellpadding="0" cellspacing="0" border="0" class="order_box" id="order_tab">
+          <tr height="30">
+              <th rowspan="2">用户注册名</th>
+              <th rowspan="2">用户姓名</th>
+              <th rowspan="2">身份证号</th>
+              <th rowspan="2">银行卡号</th>
+              <th rowspan="2">银行名称</th>
+              <th colspan="2">余额</th>
+              <th rowspan="2">账户状态</th>
+              <th rowspan="2" class="td_last">开户时间</th>
+          </tr>
+          <tr height="30">
+              <th width="7%">投资户</th>
+              <th width="7%">负债户</th>
+          </tr>
+          <tr height="45">
+              <td class="click_td">100002</td>
+              <td class="click_td">成志超</td>
+              <td class="idCardNo click_td">110102195602031234</td>
+              <td class="bankCardNo">62220274125626</td>
+              <td>兴业银行</td>
+              <td>100</td>
+              <td>1000</td>
+              <td>开户</td>
+              <td class="td_last">2015-5-5</td>
+          </tr>
+          <tr height="45">
+              <td class="click_td">100003</td>
+              <td class="click_td">成志超</td>
+              <td class="idCardNo click_td">110102195602031234</td>
+              <td class="bankCardNo">62220274125626</td>
+              <td>兴业银行</td>
+              <td>1000</td>
+              <td>100</td>
+              <td>开户+身份证</td>
+              <td class="td_last">2015-5-5</td>
+          </tr>
+          <tr height="45">
+              <td class="click_td">100004</td>
+              <td class="click_td">成志超</td>
+              <td class="idCardNo click_td">110102195602031234</td>
+              <td class="bankCardNo">62220274125626</td>
+              <td>兴业银行</td>
+              <td>100</td>
+              <td>1000</td>
+              <td>开户</td>
+              <td class="td_last">2015-5-5</td>
+          </tr>
+          <tr height="45">
+              <td class="click_td">100005</td>
+              <td class="click_td">成志超</td>
+              <td class="idCardNo click_td">110102195602031234</td>
+              <td class="bankCardNo">62220274125626</td>
+              <td>兴业银行</td>
+              <td>111</td>
+              <td>11111</td>
+              <td>开户+身份证+银行卡</td>
+              <td class="td_last">2015-5-5</td>
+          </tr>
+          <tr height="45">
+              <td class="click_td">1000026</td>
+              <td class="click_td">成志超</td>
+              <td class="idCardNo click_td">110102195602031234</td>
+              <td class="bankCardNo">62220274125626</td>
+              <td>兴业银行</td>
+              <td>111111</td>
+              <td>1111</td>
+              <td>开户</td>
+              <td class="td_last">2015-5-5</td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+          <tr height="45">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="td_last"></td>
+          </tr>
+      </table>
+      <p class="fund_page clearfix"><span><a class="h_bg_width" href="#">首页</a> <a href="#"><i class="h_icon_prev"></i></a> <a
+              class="current" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a
+              href="#"><i class="h_icon_next"></i></a> <a class="h_bg_width" href="#">末页</a></span></p>
+      </span>
+        <span id="box_upload_detail" class="clearfix" style="display:none;">
+            <div class="detail_list_til clearfix">
+                <ul style="width: auto;">
+                    <li>用户注册名：
+                        <label>100023</label>
+                    </li>
+                    <li>身份证号：
+                        <label>110102195602031234</label>
+                    </li>
+                    <li>用户姓名：
+                        <label>成志超</label>
+                    </li>
+                    <li>银行卡号：
+                        <label>62220274125626</label>
+                    </li>
+                    <li style="display: none;">银行名称：
+                        <label>中国工商银行股份有限公司</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="condition_a">
+                <ul class="clearfix">
+                    <li>
+                        <label>交易类型</label>
+                        <select style="width:150px; margin:0 2px;">
+                            <option></option>
+                            <option>转&nbsp;&nbsp;账</option>
+                            <option>代&nbsp;&nbsp;扣</option>
+                            <option>提&nbsp;&nbsp;现</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>交易结果</label>
+                        <select style="width:150px; margin:0 2px;">
+                            <option></option>
+                            <option>成&nbsp;&nbsp;功</option>
+                            <option>处理中</option>
+                            <option>失&nbsp;&nbsp;败</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>交易时间</label>
+                        <input type="text" name="" onClick="WdatePicker()"/>
+                        -
+                        <input type="text" name="" onClick="WdatePicker()"/>
+                    </li>
+                    <li style="margin-left:0px;">
+                        <button style="margin-left:50px;margin-right:20px;width:80px;">搜索</button>
+                        <button id="bindBankCard" style="margin-left:20px;margin-right:20px;width:80px;">验卡</button>
+                        <button id="new_deduct" style="margin-left:20px;margin-right:20px;width:80px;">新增代扣</button>
+                        <button  onclick="new_draw()" type="button">新增提现</button>
+                    </li>
+                </ul>
+            </div>
+            <table cellpadding="0" cellspacing="0" border="0" class="order_box">
+                <tr height="50">
+                    <th>流水号</th>
+                    <th>交易日期</th>
+                    <th>交易类型</th>
+                    <th>交易金额</th>
+                    <th>银行卡号</th>
+                    <th>银行名称</th>
+                    <th class="td_last">交易结果</th>
+                </tr>
+                <tr height="45">
+                    <td>1008</td>
+                    <td>2016-08-26 9:18</td>
+                    <td>转账</td>
+                    <td>10000</td>
+                    <td></td>
+                    <td></td>
+                    <td class="td_last">转账成功</td>
+                </tr>
+                <tr height="45">
+                    <td>1009</td>
+                    <td>2016-08-26 9:18</td>
+                    <td>提现</td>
+                    <td>10000</td>
+                    <td>62220274125626</td>
+                    <td>兴业银行</td>
+                    <td class="td_last">提现成功</td>
+                </tr>
+                <tr height="45">
+                    <td>1010</td>
+                    <td>2016-08-26 9:18</td>
+                    <td>代扣</td>
+                    <td>10000</td>
+                    <td>62220274125626</td>
+                    <td>兴业银行</td>
+                    <td class="td_last">代扣成功</td>
+                </tr>
+                <tr height="45">
+                    <td>1011</td>
+                    <td>2016-08-26 9:18</td>
+                    <td>转账</td>
+                    <td>10000</td>
+                    <td></td>
+                    <td></td>
+                    <td class="td_last">转账成功</td>
+                </tr>
+                <tr height="45">
+                    <td>1012</td>
+                    <td>2016-08-26 9:18</td>
+                    <td>提现</td>
+                    <td>10000</td>
+                    <td>62220274125626</td>
+                    <td>兴业银行</td>
+                    <td class="td_last">提现成功</td>
+                </tr>
+                <tr height="45">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="td_last"></td>
+                </tr>
+                <tr height="45">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="td_last"></td>
+                </tr>
+                <tr height="45">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="td_last"></td>
+                </tr>
+                <tr height="45">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="td_last"></td>
+                </tr>
+                <tr height="45">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="td_last"></td>
+                </tr>
+            </table>
+            <p class="fund_page clearfix"><span><a class="h_bg_width" href="#">首页</a> <a href="#"><i
+                    class="h_icon_prev"></i></a> <a
+                    class="current" href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a
+                    href="#">5</a> <a
+                    href="#"><i class="h_icon_next"></i></a> <a class="h_bg_width" href="#">末页</a></span></p>
+        </span>
+        </div>
+    </div>
+</div>
+<div id="shadow" class="shadow" style="z-index: 100"></div>
+<div id="user_info_box" class="edit_box" style="left: 30%; top: 20%;">
+    <h2 style="text-align: center; font-size: 16px;">新增开户信息<a href="javascript:;" class="close_btn"><img style="margin-top: 5px;" src="../images/xx.png"/></a></h2>
+    <form>
+        <table id="new_user_table" cellpadding="0" cellspacing="0" border="0" width="698" class="edit_table">
+            <tr height="45">
+                <td><label>用户注册名：</label>
+                    <input name="user" type="text" value="100023" />
+                </td>
+                <td><label>真实姓名：</label>
+                    <input name="userName" type="text"/>
+                </td>
+            </tr>
+            <tr height="45">
+                <td><label>身份证号：</label>
+                    <input name="id" type="text"/>
+                </td>
+                <td><label>再次输入身份证：</label>
+                    <input name="id" type="text"/>
+                </td>
+            </tr>
+            <tr height="45">
+                <td><label>银行卡号：</label>
+                    <input name="accNum" type="text"/>
+                </td>
+                <td><label>再次输入银行卡：</label>
+                    <input name="accNum" type="text"/>
+                </td>
+            </tr>
+            <tr height="45">
+                <td colspan="2"><label>银行名称：</label>
+                    <select style="width: 153px;">
+                        <option></option>
+                        <option>102 工商银行</option>
+                        <option>103 农业银行</option>
+                        <option>104 中国银行</option>
+                        <option>105 建设银行</option>
+                        <option>201 国开行</option>
+                        <option>202 进出口银行</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <p class="edit_p">
+            <button id="new_user_btn" type="button">添加</button>
+        </p>
+    </form>
+</div>
+<div id="user_bindCard_box" class="edit_box" style="left: 30%; top: 20%;">
+    <h2 style="text-align: center; font-size: 16px;">客户绑卡<a href="javascript:;" class="close_btn"><img style="margin-top: 5px;" src="../images/xx.png"/></a></h2>
+    <form>
+        <table id="new_bindCard_table" cellpadding="0" cellspacing="0" border="0" width="698" class="edit_table">
+            <tr height="45" style="display: none;">
+                <td><label>用户注册名：</label>
+                    <input name="user" type="text" value="100023" />
+                </td>
+            </tr>
+            <tr height="45"  style="display: none;">
+                <td><label>真实姓名：</label>
+                    <input name="userName" type="text"/>
+                </td>
+                <td><label>身份证号：</label>
+                    <input name="id" type="text"/>
+                </td>
+            </tr>
+            <tr height="45">
+                <td><label>银行卡号：</label>
+                    <input name="accNum" type="text"/>
+                </td>
+                <td><label>再次输入银行卡：</label>
+                    <input name="accNum" type="text"/>
+                </td>
+            </tr>
+            <tr height="45">
+                <td colspan="2"><label>银行名称：</label>
+                    <select name="accBank" style="width: 153px;">
+                        <option></option>
+                        <option value="中国工商银行股份有限公司">102 工商银行</option>
+                        <option value="中国农业银行股份有限公司">103 农业银行</option>
+                        <option value="中国银行股份有限公司">104 中国银行</option>
+                        <option value="中国建设银行股份有限公司">105 建设银行</option>
+                        <option value="国家开发银行">201 国开行</option>
+                        <option value="中国进出口银行">202 进出口银行</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <p class="edit_p">
+            <button id="new_bindCard_btn" type="button">绑定</button>
+        </p>
+    </form>
+</div>
+<div id="new_deduct_box" class="edit_box" style="left: 30%; top: 20%;">
+    <h2 style="text-align: center; font-size: 16px;">新增代扣信息<a href="javascript:;" class="close_btn"><img style="margin-top: 5px;" src="../images/xx.png"/></a></h2>
+    <form>
+        <table id="new_deduct_table" cellpadding="0" cellspacing="0" border="0" width="698" class="edit_table">
+            <tr height="45">
+                <td><label>代扣金额：</label>
+                    <input name="accBank" type="text"/>
+                </td>
+                <td><label>再次输入：</label>
+                    <input name="accNum" type="text"/>
+                </td>
+            </tr>
+        </table>
+        <p class="edit_p">
+            <button id="new_deduct_btn" type="button">新增代扣</button>
+        </p>
+    </form>
+</div>
+
+
+
+
+<div id="add_info_box2" class="edit_box" style="left: 30%; top: 20%;">
+    <h2 style="text-align: center; font-size: 16px;">新增提现信息<a href="javascript:;" onclick="closeDraw()" class="close_btn"><img style="margin-top: 5px;" src="../images/xx.png"/></a></h2>
+    <form>
+        <table   cellpadding="0" cellspacing="0" border="0" width="698" class="edit_table">
+            <!--<tr height="45">-->
+                <!--<td><label>用户注册名：</label>-->
+                    <!--<input name="user" type="text" value="100023"/>-->
+                <!--</td>-->
+                <!--<td><label>真实姓名：</label>-->
+                    <!--<input name="userName" type="text"/>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr height="45">-->
+                <!--<td><label>银行名称：</label>-->
+                    <!--<select style="width: 153px;">-->
+                        <!--<option>&nbsp;</option>-->
+                        <!--<option>招商银行</option>-->
+                        <!--<option>工商银行</option>-->
+                        <!--<option>建设银行</option>-->
+                    <!--</select>-->
+                <!--</td>-->
+                <!--<td><label>银行卡号：</label> <input name="accNum" type="text"/>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr height="45">
+                <td><label>提现金额：</label>
+                    <input name="amount" type="text"/>
+                </td>
+                <td><label>确认金额：</label>
+                    <input name="amount" type="text"/>
+                </td>
+            </tr>
+        </table>
+        <p class="edit_p">
+            <button  type="button">添加</button>
+        </p>
+    </form>
+</div>
+</body>
+
+<script type="text/javascript">
+    function new_draw(){
+        $('#shadow').show();
+        $('#add_info_box2').show();
+    }
+    function closeDraw() {
+        $('#shadow').hide();
+        $('#add_info_box2').hide();
+    }
+</script>
+</html>
