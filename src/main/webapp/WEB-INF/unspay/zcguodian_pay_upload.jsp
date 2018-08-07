@@ -431,7 +431,7 @@
               <th><input id="check_all_check_box" type="checkbox"/></th>
               <th>订单编号</th>
               <th>发送时间</th>
-              <th>进件编号</th>
+              <th>合同编号</th>
               <th>客户姓名</th>
               <th>身份证号</th>
               <th>手机号码</th>

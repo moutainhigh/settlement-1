@@ -41,10 +41,17 @@ public interface IFourElementsPayService
     List<Map<String, Object>> uploadZCGDFileDetail(String filename);
     
     /**
-     * 同意与拒绝代付
+     * 拒绝代付
      *
      * @param orderIds
      * @param verifyStatus
      */
-    void varify(String orderIds, Short verifyStatus, Integer staffId);
+    void refusePay(String orderIds, Short verifyStatus, Integer staffId);
+    /**
+     * 同意代付
+     *
+     * @param orderIds
+     * @param verifyStatus
+     */
+    void agreePay(String orderIds, Short verifyStatus, Integer staffId);
 }

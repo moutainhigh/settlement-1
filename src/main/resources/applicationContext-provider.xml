@@ -18,7 +18,7 @@
 
     <!-- 数据库连接 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="jdbcUrl" value="jdbc:mysql://192.168.0.200:3306/settlement?useUnicode=true&amp;characterEncoding=UTF8"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/settlement?useUnicode=true&amp;characterEncoding=UTF8"></property>
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
         <property name="user" value="settlement"></property>
         <property name="password" value="yhst@203"></property>
@@ -169,11 +169,11 @@
 
     <dubbo:application name="settlement-provider"  />
 
-    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" check="true"/>
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
 
     <!--作为提供者-->
 
-    <dubbo:protocol name="dubbo" port="20880" />
+    <dubbo:protocol name="dubbo" port="1083" />
 	
     <!--系统服务-->
     <dubbo:service interface="com.yuanheng100.settlement.common.service.ISysStaffService"  ref="sysStaffService"></dubbo:service>

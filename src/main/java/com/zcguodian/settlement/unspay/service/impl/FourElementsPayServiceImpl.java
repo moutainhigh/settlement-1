@@ -17,6 +17,7 @@ import com.yuanheng100.settlement.unspay.consts.VerifyStatus;
 import com.zcguodian.settlement.unspay.mapper.UnspayFourElementsPayMapper;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
 import com.zcguodian.settlement.unspay.service.IFourElementsPayService;
+import com.zcguodian.settlement.unspay.utils.UnspayZCGDUtil;
 import com.zcguodian.util.HttpUtil;
 import com.zcguodian.util.MD5Util;
 
@@ -234,13 +235,24 @@ public class FourElementsPayServiceImpl implements IFourElementsPayService
         return unspayFourElementsPayMapper.selectZCGDPayMapListByFileName(filename);
     }
 	 
-	 @Transactional
     @Override
-    public void varify(String orderIds, Short verifyStatus, Integer staffId) {
-		 unspayFourElementsPayMapper.varify(orderIds, verifyStatus, staffId);
-        if (verifyStatus == VerifyStatus.APPROVE.getCode()) {
-            //修改状态为处理中
-        	unspayFourElementsPayMapper.changePayStatus(orderIds, UnspayStatus.HANDDING.getCode());
-        }
+    public void refusePay(String orderIds, Short verifyStatus, Integer staffId) {
+		unspayFourElementsPayMapper.verify(orderIds, verifyStatus, staffId);
     } 
+	
+	@Transactional
+	@Override
+	public void agreePay(String orderIds, Short verifyStatus, Integer staffId) {
+		unspayFourElementsPayMapper.verify(orderIds, verifyStatus, staffId);
+		String[] array = orderIds.split(",");
+		for (String orderId : array){
+			UnspayFourElementsPay unspayFourElementsPay = unspayFourElementsPayMapper.selectByPrimaryKey(Integer.valueOf(orderId));
+			
+		}
+		
+		if (verifyStatus == VerifyStatus.APPROVE.getCode()) {
+			//修改状态为处理中
+			unspayFourElementsPayMapper.changePayStatus(orderIds, UnspayStatus.HANDDING.getCode());
+		}
+	} 
 }

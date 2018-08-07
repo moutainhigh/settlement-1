@@ -1,25 +1,28 @@
 package com.zcguodian.settlement.unspay.model;
 
-import java.math.BigDecimal;
 
 public class UnspayFourElementsPayResponse
 {
+	/**
+	 * 返回码  0000表示处理成功，改成功只代表受理代付请求成功，不代表代付交易结果是成功
+	 */
 	private String resultCode;
 	
+	/**
+	 * 返回信息
+	 */
 	private String resultMessage;
 	
+	/**
+	 * 交易状态：00，成功；10，处理中；20，失败；
+	 */
 	private Short Status;
 	
+	/**
+	 * 交易结果描述信息
+	 */
 	private String desc;
 	
-	private BigDecimal amount;
-	
-	private Long orderId;
-	
-	private String mac;
-	
-	private BigDecimal balance;
-
 	public String getResultCode()
 	{
 		return resultCode;
@@ -59,45 +62,4 @@ public class UnspayFourElementsPayResponse
 	{
 		this.desc = desc;
 	}
-
-	public BigDecimal getAmount()
-	{
-		return amount;
-	}
-
-	public void setAmount(BigDecimal amount)
-	{
-		this.amount = amount;
-	}
-
-	public Long getOrderId()
-	{
-		return orderId;
-	}
-
-	public void setOrderId(Long orderId)
-	{
-		this.orderId = orderId;
-	}
-
-	public String getMac()
-	{
-		return mac;
-	}
-
-	public void setMac(String mac)
-	{
-		this.mac = mac;
-	}
-
-	public BigDecimal getBalance()
-	{
-		return balance;
-	}
-
-	public void setBalance(BigDecimal balance)
-	{
-		this.balance = balance;
-	}
-	
 }

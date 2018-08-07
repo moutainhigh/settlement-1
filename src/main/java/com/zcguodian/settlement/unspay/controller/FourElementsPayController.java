@@ -54,9 +54,11 @@ public class FourElementsPayController
 	@Autowired
 	private LoginStaff loginStaff;
 
-	@RequestMapping("/hello")
-	@ResponseBody
-	public String fourElementsPay()
+	/**
+	 * 四要素实时代付
+	 * @return
+	 */
+	public String fourElementsPay(String orderIds, Short verifyStatus, Integer staffId)
 	{
 		UnspayFourElementsPay unspayFourElementsPay = new UnspayFourElementsPay();
 //		unspayFourElementsPay.setAccountId(1120180709153050001L);
@@ -215,7 +217,14 @@ public class FourElementsPayController
             return "1";
         }
         logger.info("管理员" + loginStaff.getSysStaff().getStaffName() + "同意或拒绝代付操作，订单编号为：" + orderIds + "，操作码为：" + verifyStatus);
-        fourElementsPayService.varify(orderIds, verifyStatus, loginStaff.getSysStaff().getId());
+        //拒绝代付
+        if (verifyStatus == 2) {
+        	fourElementsPayService.refusePay(orderIds, verifyStatus, loginStaff.getSysStaff().getId());
+        }
+        //同意代付
+        if (verifyStatus == 1) {
+        	fourElementsPayService.agreePay(orderIds, verifyStatus, loginStaff.getSysStaff().getId());
+        }
         return "1";
     }
     

@@ -125,15 +125,15 @@ public interface UnspayFourElementsPayMapper {
         "SET auditor = #{auditor,jdbcType=INTEGER},",
         "verifyStatus = #{verifyStatus,jdbcType=SMALLINT}",
         "WHERE orderId IN (${orderIds})"
-})
-void varify(@Param("orderIds") String orderIds, @Param("verifyStatus") Short verifyStatus, @Param("auditor") Integer auditor);
+    })
+    void verify(@Param("orderIds") String orderIds, @Param("verifyStatus") Short verifyStatus, @Param("auditor") Integer auditor);
     
     @Update({
         "UPDATE unspay_zcgd_pay",
         "SET payResult = #{payResult,jdbcType=VARCHAR}",
         "WHERE orderId IN (${orderIds})"
-})
-void changePayStatus(@Param("orderIds") String orderIds, @Param("payResult") String payResult);
+    })
+    void changePayStatus(@Param("orderIds") String orderIds, @Param("payResult") String payResult);
 
     
     //获取实时代付上传记录数
