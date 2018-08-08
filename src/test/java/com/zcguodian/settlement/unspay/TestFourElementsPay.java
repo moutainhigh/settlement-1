@@ -41,7 +41,7 @@ public class TestFourElementsPay extends BaseTest
 //		unspayFourElementsPay.setResponseUrl("http://w4trrm.natappfree.cc/fund-settlement-impl/responseResult");
 		logger.info(unspayFourElementsPay);
 
-		fourElementsPayService.fourElementsPay(unspayFourElementsPay);
+//		fourElementsPayService.fourElementsPay(unspayFourElementsPay);
 	}
 
 }

@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -53,30 +52,6 @@ public class FourElementsPayController
 	private IFourElementsPayService fourElementsPayService;
 	@Autowired
 	private LoginStaff loginStaff;
-
-	/**
-	 * 四要素实时代付
-	 * @return
-	 */
-	public String fourElementsPay(String orderIds, Short verifyStatus, Integer staffId)
-	{
-		UnspayFourElementsPay unspayFourElementsPay = new UnspayFourElementsPay();
-//		unspayFourElementsPay.setAccountId(1120180709153050001L);
-//		unspayFourElementsPay.setAccountId("2120180702095307001");
-		unspayFourElementsPay.setName("柳健青");
-		unspayFourElementsPay.setCardNo("6212260302018048181");
-		unspayFourElementsPay.setOrderId(Integer.valueOf((int) new Date().getTime()));
-		unspayFourElementsPay.setPurpose("测试");
-		unspayFourElementsPay.setAmount(new BigDecimal(4));
-		unspayFourElementsPay.setIdCardNo("370687198908081576");
-		unspayFourElementsPay.setSummary("测试");
-		unspayFourElementsPay.setPhoneNo(15154258821L);
-//		unspayFourElementsPay.setResponseUrl("http://dr4cj7.natappfree.cc/unspay/responseResult");
-		logger.info(unspayFourElementsPay);
-
-		fourElementsPayService.fourElementsPay(unspayFourElementsPay);
-		return "Hello World";
-	}
 
 	@RequestMapping(value = "/queryOrderStatus")
 	public void queryOrderStatus()
@@ -166,15 +141,6 @@ public class FourElementsPayController
             Date uploadDate = new Date();
             StringBuilder builder = new StringBuilder();
             for (UnspayFourElementsPay unspayFourElementsPay : analyseImportUnspayZCGD) {
-                //加入子协议编号
-//                UnspaySubContract unspaySubContract = subContractService.querySubContractLocal(unspayPay.getLoanApplyId());
-//                if (unspaySubContract == null) {
-//                    builder.append(unspayPay.getLoanApplyId()).append(",");
-//                    continue;
-//                }
-//                if (!unspaySubContract.getName().equals(unspayPay.getName()) || !unspaySubContract.getCardNo().equals(unspayPay.getCardNo())) {
-//                    continue;
-//                }
                 //加入额外信息并放入队列
             	unspayFourElementsPay.setFilename(fileName);
             	unspayFourElementsPay.setUploadDate(uploadDate);
@@ -262,6 +228,22 @@ public class FourElementsPayController
         map.putAll(searchConditions);
         return "unspay/zcguodian_pay_list";
     }
+    
+    /**
+     * 实时代付结果查询
+     *
+     * @param orderId
+     * @return
+     */
+//    @ResponseBody
+//    @RequestMapping(value = "/queryZCGDPayOrder", method = RequestMethod.GET)
+//    public UnspayPayResponse queryPayOrder(@RequestParam(value = "orderId") Integer orderId) {
+//        UnspayPay payByOrderId = payService.getPayByOrderId(orderId);
+//        if (payByOrderId != null) {
+//            return payService.queryOrderStatusRemote(payByOrderId);
+//        }
+//        return null;
+//    }
     
     /**
      * 保存上传文件

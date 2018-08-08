@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="search_path"
-       value="${ctx}/unspay/zcguodianPayUpload?filename=${filename}&uploadStartDate=${uploadStartDate}&uploadEndDate=${uploadEndDate}"/>
+       value="${ctx}/zcgdUnspay/zcguodianPayUpload?filename=${filename}&uploadStartDate=${uploadStartDate}&uploadEndDate=${uploadEndDate}"/>
 <!doctype html>
 <html>
 <head>
@@ -324,7 +324,7 @@
       <span id="box_upload_list">
       <div class="condition_a">
           <ul class="clearfix">
-              <form id="page_form" action="${ctx}/zcgdUnspay/zcguodianpPayUpload" method="GET">
+              <form id="page_form" action="${ctx}/zcgdUnspay/zcguodianPayUpload" method="GET">
                   <li>
                       <label>文件名称</label>
                       <input name="filename" type="text" placeholder="导入文件名称" class="place_txt" value="${filename}"/>

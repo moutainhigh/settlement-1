@@ -93,8 +93,7 @@
           <tr height="50">
               <th>订单编号</th>
               <th>文件名称</th>
-              <th>进件编号</th>
-              <th>分期编号</th>
+              <th>合同编号</th>
               <th>客户姓名</th>
               <th>手机号码</th>
               <th>银行卡号</th>
@@ -110,7 +109,6 @@
                   <td>${unspayPay.orderId}</td>
                   <td>${unspayPay.filename}</td>
                   <td>${unspayPay.loanApplyId}</td>
-                  <td>${unspayPay.repayPhaseId}</td>
                   <td>${unspayPay.name}</td>
                   <td>${unspayPay.phoneNo}</td>
                   <td>${unspayPay.cardNo}</td>

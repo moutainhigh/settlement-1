@@ -131,9 +131,10 @@ public interface UnspayFourElementsPayMapper {
     @Update({
         "UPDATE unspay_zcgd_pay",
         "SET payResult = #{payResult,jdbcType=VARCHAR}",
-        "WHERE orderId IN (${orderIds})"
+        "`desc` = #{desc,jdbcType=VARCHAR}",
+        "WHERE orderId = #{orderId,jdbcType=INTEGER}"
     })
-    void changePayStatus(@Param("orderIds") String orderIds, @Param("payResult") String payResult);
+    void changePayStatusAndDesc(@Param("orderId") Integer orderId, @Param("payResult") String payResult, @Param("desc") String desc);
 
     
     //获取实时代付上传记录数

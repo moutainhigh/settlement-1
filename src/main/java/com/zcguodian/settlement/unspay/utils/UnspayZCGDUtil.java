@@ -1,7 +1,6 @@
 package com.zcguodian.settlement.unspay.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yuanheng100.settlement.unspay.model.*;
 import com.yuanheng100.util.ConfigFile;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayResponse;
@@ -11,10 +10,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -51,13 +46,9 @@ public class UnspayZCGDUtil {
      * 银生宝商户账户余额及保证金余额查询路径
      */
     private static final String UNSPAYQUERYBALANCEPATH = ConfigFile.getProperty("unspay.zcguodian.queryBlance");
-    /**
-     * 银生宝要求的时间格式
-     */
-    private static DateFormat format = new SimpleDateFormat("yyyyMMdd");
 
     /**
-     * 检验代扣、代付结果通知是否为银生宝发送
+     * 检验代付结果通知是否为银生宝发送
      *
      * @param resultCode
      * @param resultMsg
@@ -66,19 +57,19 @@ public class UnspayZCGDUtil {
      * @param mac
      * @return
      */
-  /*  public static boolean checkDeductCallBack(String resultCode, String resultMsg, BigDecimal amount, String orderId, String mac) {
+    public static boolean checkUnspayCallBack(String resultCode, String resultMsg, BigDecimal amount, String orderId, String mac) {
 
         logger.debug("校验回调是否是银生宝，参数为{result_code:" + resultCode + ",result_msg:" + resultMsg + "amount:" + amount + ",orderId:" + orderId + ",mac:" + mac + "}");
 
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
-        hashMap.put("accountId", ACCOUNTID);
+        hashMap.put("accountId", UNSPAYACCOUNTID);
         hashMap.put("orderId", orderId);
         hashMap.put("amount", String.valueOf(amount));
         hashMap.put("result_code", resultCode);
         if (resultMsg != null) {
             hashMap.put("result_msg", resultMsg);
         }
-        hashMap.put("key", KEY);
+        hashMap.put("key", UNSPAYKEY);
 
         String macString = getMacString(hashMap);
         String localMac = DigestUtils.md5Hex(macString).toUpperCase();
@@ -86,7 +77,7 @@ public class UnspayZCGDUtil {
             return true;
         }
         return false;
-    }*/
+    }
 
     /**
      * 代付
@@ -95,7 +86,7 @@ public class UnspayZCGDUtil {
      * @return
      */
     public static UnspayFourElementsPayResponse pay(UnspayFourElementsPay unspayFourElementsPay) {
-        String url = UNSPAYSITE + UNSPAYACCOUNTID;
+        String url = UNSPAYSITE + UNSPAYPAYPATH;
         //校验数据
         String name, cardNo, purpose, idCardNo;
         int orderId;
@@ -146,7 +137,7 @@ public class UnspayZCGDUtil {
      * @return
      */
     public static UnspayFourElementsPayResponse queryPayOrderStatus(UnspayFourElementsPay unspayFourElementsPay) {
-        String url = UNSPAYSITE + UNSPAYACCOUNTID;
+        String url = UNSPAYSITE + UNSPAYQUERYORDERSTATUSPATH;
         //校验数据
         int orderId;
         if ((orderId = unspayFourElementsPay.getOrderId()) == 0) {
@@ -190,7 +181,7 @@ public class UnspayZCGDUtil {
      * @return Map : result_code result_msg bailBalance:保证金金额 balance：账户余额
      */
     public static Map<String, String> queryBalance() {
-    	String url = UNSPAYSITE + UNSPAYACCOUNTID;
+    	String url = UNSPAYSITE + UNSPAYQUERYBALANCEPATH;
 
         //必须字段
         LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();

@@ -116,7 +116,7 @@
                   <td>${unspayPay.name}</td>
                   <td>${unspayPay.phoneNo}</td>
                   <td>${unspayPay.cardNo}</td>
-                  <td><yh:bank bankCode="${unspayPay.bankCode}"/></td>
+                  <td><%-- <yh:bank bankCode="${unspayPay.bankCode}"/> --%></td>
                   <td style="font-weight: bold;">
                       <fmt:formatNumber pattern="###,###,###" value="${unspayPay.amount}"></fmt:formatNumber><small><fmt:formatNumber pattern=".00" value="${unspayPay.amount % 1.0}"></fmt:formatNumber></small>
                   </td>

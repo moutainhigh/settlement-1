@@ -9,8 +9,6 @@ import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
 
 public interface IFourElementsPayService
 {
-	boolean fourElementsPay(UnspayFourElementsPay unspayFourElementsPay);
-	
 	String fourElementsPay(String result);
 	
 	String queryOrderStatus(Long orderId);

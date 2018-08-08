@@ -1,5 +1,6 @@
 package com.zcguodian.settlement.unspay.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import com.yuanheng100.settlement.unspay.consts.UnspayStatus;
 import com.yuanheng100.settlement.unspay.consts.VerifyStatus;
 import com.zcguodian.settlement.unspay.mapper.UnspayFourElementsPayMapper;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
+import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayResponse;
 import com.zcguodian.settlement.unspay.service.IFourElementsPayService;
 import com.zcguodian.settlement.unspay.utils.UnspayZCGDUtil;
 import com.zcguodian.util.HttpUtil;
@@ -30,69 +32,6 @@ public class FourElementsPayServiceImpl implements IFourElementsPayService
 	@Autowired
 	private SysStaffMapper sysStaffMapper;
 	
-	@Override
-	public boolean fourElementsPay(UnspayFourElementsPay unspayFourElementsPay)
-	{
-		// http://xtwu42.natappfree.cc
-		StringBuffer stringBuffer = new StringBuffer();
-//		if(unspayFourElementsPay.getAccountId() != null)
-//		{
-//			stringBuffer.append("accountId=").append(unspayFourElementsPay.getAccountId()).append("&");
-//		}
-		if(unspayFourElementsPay.getName() != null)
-		{
-			stringBuffer.append("name=").append(unspayFourElementsPay.getName()).append("&");
-		}
-		if(unspayFourElementsPay.getCardNo() != null)
-		{
-			stringBuffer.append("cardNo=").append(unspayFourElementsPay.getCardNo()).append("&");
-		}
-		if(unspayFourElementsPay.getOrderId() != null)
-		{
-			stringBuffer.append("orderId=").append(unspayFourElementsPay.getOrderId()).append("&");
-		}
-		if(unspayFourElementsPay.getPurpose() != null)
-		{
-			stringBuffer.append("purpose=").append(unspayFourElementsPay.getPurpose()).append("&");
-		}
-		if(unspayFourElementsPay.getAmount() != null)
-		{
-			stringBuffer.append("amount=").append(unspayFourElementsPay.getAmount()).append("&");
-		}
-		if(unspayFourElementsPay.getIdCardNo() != null)
-		{
-			stringBuffer.append("idCardNo=").append(unspayFourElementsPay.getIdCardNo()).append("&");
-		}
-		if(unspayFourElementsPay.getSummary() != null)
-		{
-			stringBuffer.append("summary=").append(unspayFourElementsPay.getSummary()).append("&");
-		}
-		if(unspayFourElementsPay.getPhoneNo() != null)
-		{
-			stringBuffer.append("phoneNo=").append(unspayFourElementsPay.getPhoneNo()).append("&");
-		}
-//		if(unspayFourElementsPay.getResponseUrl() != null)
-//		{
-//			stringBuffer.append("responseUrl=").append(unspayFourElementsPay.getResponseUrl()).append("&");
-//		}
-		String str = stringBuffer.toString();
-		
-//		stringBuffer.append("key=123456abc");
-		stringBuffer.append("key=zcgd635635");
-		
-		str = str + "mac=" + MD5Util.MD5(stringBuffer.toString());
-		logger.info("表单：" + str);
-		
-		logger.info("MAC串：" + stringBuffer.toString());
-		
-//		unspayFourElementsPay.setMac(MD5Util.MD5(stringBuffer.toString()));
-		
-//		String result = HttpUtil.sendPost("http://180.166.114.155:7181/delegate-pay-front-dp/delegatePay/fourElementsPay", str);
-		String result = HttpUtil.sendPost("https://www.unspay.com/delegate-pay-front/delegatePay/fourElementsPay", str);
-		
-		logger.info("四要素实时代付响应信息：" + result);
-		return false;
-	}
 
 	@Override
 	public String queryOrderStatus(Long orderId)
@@ -247,12 +186,14 @@ public class FourElementsPayServiceImpl implements IFourElementsPayService
 		String[] array = orderIds.split(",");
 		for (String orderId : array){
 			UnspayFourElementsPay unspayFourElementsPay = unspayFourElementsPayMapper.selectByPrimaryKey(Integer.valueOf(orderId));
-			
-		}
-		
-		if (verifyStatus == VerifyStatus.APPROVE.getCode()) {
-			//修改状态为处理中
-			unspayFourElementsPayMapper.changePayStatus(orderIds, UnspayStatus.HANDDING.getCode());
+			unspayFourElementsPay.setSendDate(new Date());
+			//向银生宝发送代付,获取返回信息
+			UnspayFourElementsPayResponse unspayFourElementsPayResponse = UnspayZCGDUtil.pay(unspayFourElementsPay);
+			unspayFourElementsPay.setPayResult(unspayFourElementsPayResponse.getResultCode());
+			unspayFourElementsPay.setDesc(unspayFourElementsPayResponse.getResultMessage());
+			unspayFourElementsPay.setResponseDate(new Date());
+			//根据返回结果修改实时代付表数据
+			unspayFourElementsPayMapper.updateByPrimaryKey(unspayFourElementsPay);
 		}
 	} 
 }
