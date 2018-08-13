@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.yuanheng100.settlement.common.model.system.Page;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
+import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayResponse;
 
 public interface IFourElementsPayService
 {
@@ -16,6 +17,21 @@ public interface IFourElementsPayService
 	String queryBlance();
 	
 	void getZCGDUploadListPage(HashMap<String, Object> searchConditions, Page<Map<String, Object>> page);
+	
+	/**
+	 * 根据orderId获取四要素实时代付对象
+	 * @param orderId
+	 * @return
+	 */
+	UnspayFourElementsPay getPayByOrderId (Integer orderId);
+	
+	/**
+     * 主动查询订单结果（代付结果）
+     *
+     * @param unspayPay
+     * @return PayResponse包含status desc属性
+     */
+//    UnspayFourElementsPayResponse queryOrderStatusRemote(UnspayFourElementsPay unspayFourElementsPay);
 	
 	/**
      * 代付列表页面

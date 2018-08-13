@@ -31,6 +31,7 @@ import com.yuanheng100.settlement.common.model.system.Page;
 import com.yuanheng100.settlement.common.model.system.SysStaff;
 import com.yuanheng100.settlement.unspay.utils.UnspayExcelUtil;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
+import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayResponse;
 import com.zcguodian.settlement.unspay.service.IFourElementsPayService;
 
 @RequestMapping("/zcgdUnspay")
@@ -235,15 +236,16 @@ public class FourElementsPayController
      * @param orderId
      * @return
      */
-//    @ResponseBody
-//    @RequestMapping(value = "/queryZCGDPayOrder", method = RequestMethod.GET)
-//    public UnspayPayResponse queryPayOrder(@RequestParam(value = "orderId") Integer orderId) {
-//        UnspayPay payByOrderId = payService.getPayByOrderId(orderId);
-//        if (payByOrderId != null) {
-//            return payService.queryOrderStatusRemote(payByOrderId);
-//        }
-//        return null;
-//    }
+    @ResponseBody
+    @RequestMapping(value = "/queryZCGDPayOrder", method = RequestMethod.GET)
+    public UnspayFourElementsPayResponse queryPayOrder(@RequestParam(value = "orderId") Integer orderId) {
+    	UnspayFourElementsPay payByOrderId = fourElementsPayService.getPayByOrderId(orderId);
+        if (payByOrderId != null) {
+//            return fourElementsPayService.queryOrderStatusRemote(payByOrderId);
+        	return null;
+        }
+        return null;
+    }
     
     /**
      * 保存上传文件

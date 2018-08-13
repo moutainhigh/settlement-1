@@ -15,6 +15,10 @@ import com.yuanheng100.settlement.common.mapper.SysStaffMapper;
 import com.yuanheng100.settlement.common.model.system.Page;
 import com.yuanheng100.settlement.unspay.consts.UnspayStatus;
 import com.yuanheng100.settlement.unspay.consts.VerifyStatus;
+import com.yuanheng100.settlement.unspay.model.UnspayPay;
+import com.yuanheng100.settlement.unspay.model.UnspayPayMessageType;
+import com.yuanheng100.settlement.unspay.model.UnspayPayRequest;
+import com.yuanheng100.settlement.unspay.model.UnspayPayResponse;
 import com.zcguodian.settlement.unspay.mapper.UnspayFourElementsPayMapper;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayResponse;
@@ -79,6 +83,21 @@ public class FourElementsPayServiceImpl implements IFourElementsPayService
 		logger.info("余额查询响应信息：" + result);
 		return result;
 	}
+	
+	@Override
+	public UnspayFourElementsPay getPayByOrderId (Integer orderId) {
+		return unspayFourElementsPayMapper.selectByPrimaryKey(orderId);
+	}
+	
+//	@Override
+//	public UnspayFourElementsPayResponse queryOrderStatusRemote(UnspayFourElementsPay unspayFourElementsPay) {
+//
+//        UnspayPayRequest UnspayPayRequest = new UnspayPayRequest();
+//        UnspayPayRequest.setOrderId(unspayFourElementsPay.getOrderId());
+//        UnspayPayRequest.setMessageType(UnspayPayMessageType.QUERYORDER.getCode());
+//        logger.info("订单编号：" + unspayFourElementsPay.getOrderId() + "远程同步查询支付结果" + JSON.toJSONString(unspayFourElementsPay));
+////        return (UnspayFourElementsPayResponse) syncSend(UnspayPayRequest);
+//    }
 	
 	@Override
     public void getZCGDUploadListPage(HashMap<String, Object> searchConditions, Page<Map<String, Object>> page) {
