@@ -144,11 +144,12 @@
                         var amount = '';
                         var operate = '';
                         if(item.payResult!=null){
-                            if (item.payResult == '0000')
+                            if (item.payResult == '00'){
                                 status = '<td class="success">' + '成功' + '</td>';
+                            }
                             else if (item.payResult != '10' && item.payResult != '0000')
                                 status = '<td class="failur">' + item.desc + '</td>';
-                            else if (item.payResult == '10') {
+                            else if (item.payResult == '10' || item.payResult == '0000') {
                                 status = '<td class="going">' + '处理中' + '</td>';
                                 if(item.sendDate!=null){
                                     operate = '<button style="width: 35px;" data-orderId="' + item.orderId + '">同步</button>';
@@ -246,17 +247,17 @@
                     //添加同步事件
                     $upload_detail_table.find('button[data-orderId]').unbind('click').click(function () {
                         var orderId = $(this).attr('data-orderId');
-                        $.get("${ctx}/unspay/queryPayOrder", {'orderId': orderId}, function (unspayPayResponse) {
+                        $.get("${ctx}/zcgdUnspay/queryZCGDPayOrder", {'orderId': orderId}, function (unspayPayResponse) {
                             var $tr = $upload_detail_table.find('button[data-orderId="'+orderId+'"]').parents('tr');
                             if(unspayPayResponse.resultCode!='0000'){
                                 alert('同步失败，'+unspayPayResponse.resultMessage);
-                                $tr.children(':eq(10)').html(unspayPayResponse.resultCode);
-                                $tr.children(':eq(11)').html(unspayPayResponse.resultMessage);
+                                $tr.children(':eq(9)').html(unspayPayResponse.resultCode);
+                                $tr.children(':eq(10)').html(unspayPayResponse.resultMessage);
                             }else{
-                                $tr.children(':eq(10)').html(unspayPayResponse.deductResult);
-                                $tr.children(':eq(11)').html(unspayPayResponse.desc);
+                                $tr.children(':eq(9)').html(unspayPayResponse.status);
+                                $tr.children(':eq(10)').html(unspayPayResponse.desc);
                             }
-                            $tr.children(':eq(12)').children('button').hide();
+                            $tr.children(':eq(11)').children('button').hide();
                         },'json');
                     });
 

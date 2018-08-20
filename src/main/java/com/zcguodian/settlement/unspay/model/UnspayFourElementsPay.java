@@ -75,11 +75,6 @@ public class UnspayFourElementsPay {
     private Short verifyStatus;
 
     /**
-     * 代付计划发送时间，没有则立即发送
-     */
-    private Date planDate;
-
-    /**
      * 代付发送时间
      */
     private Date sendDate;
@@ -321,22 +316,6 @@ public class UnspayFourElementsPay {
      */
     public void setVerifyStatus(Short verifyStatus) {
         this.verifyStatus = verifyStatus;
-    }
-
-    /**
-     * 代付计划发送时间，没有则立即发送
-     * @return planDate 代付计划发送时间，没有则立即发送
-     */
-    public Date getPlanDate() {
-        return planDate;
-    }
-
-    /**
-     * 代付计划发送时间，没有则立即发送
-     * @param planDate 代付计划发送时间，没有则立即发送
-     */
-    public void setPlanDate(Date planDate) {
-        this.planDate = planDate;
     }
 
     /**

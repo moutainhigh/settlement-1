@@ -1,10 +1,10 @@
 package com.zcguodian.settlement.unspay.model;
 
+import com.yuanheng100.channel.entity.MessageResponse;
 
-public class UnspayFourElementsPayResponse
-{
+public class UnspayFourElementsPayResponse extends MessageResponse{
 	/**
-	 * 返回码  0000表示处理成功，改成功只代表受理代付请求成功，不代表代付交易结果是成功
+	 * 返回码  0000表示处理成功，该成功只代表受理代付请求成功，不代表代付交易结果是成功
 	 */
 	private String resultCode;
 	

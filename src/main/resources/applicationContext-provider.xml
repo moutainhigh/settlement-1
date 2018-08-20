@@ -40,6 +40,9 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
+    
+    <!-- 使用annotation定义事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
     <!-- 映射mybatis的mapper包-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -75,7 +78,11 @@
     </bean>
     
     <!-- 中城国典银生宝的service -->
-    <bean id="fourElementsPayService" class="com.zcguodian.settlement.unspay.service.impl.FourElementsPayServiceImpl"></bean>
+    <bean id="fourElementsPayService" class="com.zcguodian.settlement.unspay.service.impl.FourElementsPayServiceImpl" init-method="init" destroy-method="destroy" scope="singleton"  depends-on="dataSourceUtils">
+    	<property name="poolSize" value="10"></property>
+        <property name="saved" value="false"></property>
+        <property name="adapterClassName" value="com.zcguodian.settlement.unspay.adaptor.UnspayFourElementsPayAdaptor"></property>
+    </bean>
 
     <!-- 首信易的service -->
     <bean id="payeaseCustomerService" class="com.yuanheng100.settlement.payease.service.impl.CustomerServiceImpl" init-method="init" destroy-method="destroy">

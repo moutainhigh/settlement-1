@@ -246,8 +246,8 @@ public class UnspayExcelUtil {
 		Sheet sheet = wb.createSheet("放款入账");
 		sheet.setDefaultColumnWidth(20);
 		Row headRow = sheet.createRow(0);
-		UnspayExcelUtil.setHeadRow(headRow, new String[]{"合同编号","入账姓名","收款人身份证号","入账银行卡号", "付款金额","付款目的","付款结果"});
-		UnspayExcelUtil.setDataRow(sheet, unspayMaps, new String[]{"loanApplyId", "name", "idCardNo","cardNo", "amount", "purpose","payResult"});
+		UnspayExcelUtil.setHeadRow(headRow, new String[]{"合同编号","入账姓名","收款人身份证号","入账银行卡号", "付款金额","付款目的","付款结果","交易结果描述"});
+		UnspayExcelUtil.setDataRow(sheet, unspayMaps, new String[]{"loanApplyId", "name", "idCardNo","cardNo", "amount", "purpose","payResult","desc"});
 		return wb;
 	}
 	

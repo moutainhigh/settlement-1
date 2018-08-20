@@ -165,6 +165,7 @@
                     <li><a href="${ctx}/unspay/report" target="iframe">报表</a></li>
                     <li><a href="${ctx}/zcgdUnspay/zcguodianPayUpload" target="iframe">国典代付导入</a></li>
                     <li><a href="${ctx}/zcgdUnspay/zcguodianPayList" target="iframe">国典代付查询</a></li>
+                    <%-- <li><a href="${ctx}/zcgdUnspay/zcguodianReport" target="iframe">国典代付报表</a></li> --%>
                 </ul>
             </li>
             <li><a href="javascript:;" onclick="DoMenu('ChildMenu4')">畅捷通</a>

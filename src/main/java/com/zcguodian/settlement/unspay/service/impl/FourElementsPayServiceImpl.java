@@ -10,25 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yuanheng100.channel.service.AbstractMessageService;
 import com.alibaba.fastjson.JSON;
 import com.yuanheng100.settlement.common.mapper.SysStaffMapper;
 import com.yuanheng100.settlement.common.model.system.Page;
-import com.yuanheng100.settlement.unspay.consts.UnspayStatus;
-import com.yuanheng100.settlement.unspay.consts.VerifyStatus;
-import com.yuanheng100.settlement.unspay.model.UnspayPay;
-import com.yuanheng100.settlement.unspay.model.UnspayPayMessageType;
-import com.yuanheng100.settlement.unspay.model.UnspayPayRequest;
-import com.yuanheng100.settlement.unspay.model.UnspayPayResponse;
+import com.zcguodian.settlement.unspay.consts.UnspayZCGDStatus;
+import com.zcguodian.settlement.unspay.consts.VerifyZCGDStatus;
 import com.zcguodian.settlement.unspay.mapper.UnspayFourElementsPayMapper;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
+import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayMessageType;
+import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayRequest;
 import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayResponse;
 import com.zcguodian.settlement.unspay.service.IFourElementsPayService;
 import com.zcguodian.settlement.unspay.utils.UnspayZCGDUtil;
-import com.zcguodian.util.HttpUtil;
-import com.zcguodian.util.MD5Util;
 
 @Service("fourElementsPayService")
-public class FourElementsPayServiceImpl implements IFourElementsPayService
+public class FourElementsPayServiceImpl extends AbstractMessageService<UnspayFourElementsPayRequest> implements IFourElementsPayService
 {
 	private static Logger logger = Logger.getLogger(FourElementsPayServiceImpl.class);
 	@Autowired
@@ -36,68 +33,14 @@ public class FourElementsPayServiceImpl implements IFourElementsPayService
 	@Autowired
 	private SysStaffMapper sysStaffMapper;
 	
+	public UnspayFourElementsPayMapper getUnspayFourElementsPayMapper() {
+        return unspayFourElementsPayMapper;
+    }
 
-	@Override
-	public String queryOrderStatus(Long orderId)
-	{
-		StringBuffer stringBuffer = new StringBuffer();
-//		stringBuffer.append("accountId=").append("1120180709153050001").append("&");
-		stringBuffer.append("accountId=").append("2120180702095307001").append("&");
-		stringBuffer.append("orderId=").append(orderId).append("&");
-		
-		String str = stringBuffer.toString();
-//		stringBuffer.append("key=123456abc");
-		stringBuffer.append("key=zcgd635635");
-		
-		String MAC = MD5Util.MD5(stringBuffer.toString());
-		str = str + "mac=" + MAC;
-		logger.info("订单状态查询发送信息：" + str);
-//		String result = HttpUtil.sendPost("http://180.166.114.155:7181/delegate-pay-front-dp/delegatePay/queryOrderStatus", str);
-		String result = HttpUtil.sendPost("https://www.unspay.com/delegate-pay-front/delegatePay/queryOrderStatus", str);
-		logger.info("订单状态查询响应信息：" + result);
-		return result;
-	}
-	
-	@Override
-	public String fourElementsPay(String result)
-	{
-		System.out.println("响应结果" + result);
-		logger.info("实时代付结果" + result);
-		return null;
-	}
-
-	//2120180702095307001
-	//1120180709153050001
-	@Override
-	public String queryBlance()
-	{
-		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append("accountId=").append("2120180702095307001").append("&");
-		String str = stringBuffer.toString();
-		stringBuffer.append("key=zcgd635635");
-		String mac = MD5Util.MD5(stringBuffer.toString());
-		str = str + "mac=" + mac;
-		logger.info("余额查询发送信息：" + str);
-//		String result = HttpUtil.sendPost("http://180.166.114.155:7181/delegate-pay-front/delegatePay/queryBlance", str);
-		String result = HttpUtil.sendPost("https://www.unspay.com/delegate-pay-front/delegatePay/queryBlance", str);
-		logger.info("余额查询响应信息：" + result);
-		return result;
-	}
-	
 	@Override
 	public UnspayFourElementsPay getPayByOrderId (Integer orderId) {
 		return unspayFourElementsPayMapper.selectByPrimaryKey(orderId);
 	}
-	
-//	@Override
-//	public UnspayFourElementsPayResponse queryOrderStatusRemote(UnspayFourElementsPay unspayFourElementsPay) {
-//
-//        UnspayPayRequest UnspayPayRequest = new UnspayPayRequest();
-//        UnspayPayRequest.setOrderId(unspayFourElementsPay.getOrderId());
-//        UnspayPayRequest.setMessageType(UnspayPayMessageType.QUERYORDER.getCode());
-//        logger.info("订单编号：" + unspayFourElementsPay.getOrderId() + "远程同步查询支付结果" + JSON.toJSONString(unspayFourElementsPay));
-////        return (UnspayFourElementsPayResponse) syncSend(UnspayPayRequest);
-//    }
 	
 	@Override
     public void getZCGDUploadListPage(HashMap<String, Object> searchConditions, Page<Map<String, Object>> page) {
@@ -139,17 +82,17 @@ public class FourElementsPayServiceImpl implements IFourElementsPayService
             for (UnspayFourElementsPay ded : unspayPays) {
 
                 Short verifyStatus = ded.getVerifyStatus();
-                if (verifyStatus.equals(VerifyStatus.NOTAUDITED.getCode())) {
+                if (verifyStatus.equals(VerifyZCGDStatus.ZCGD_NOTAUDITED.getCode())) {
                     notVerify++;
-                } else if (verifyStatus.equals(VerifyStatus.DISAPPROVE.getCode())) {
+                } else if (verifyStatus.equals(VerifyZCGDStatus.ZCGD_DISAPPROVE.getCode())) {
                     refused++;
                 }
 
                 String resultStatus = ded.getPayResult();
                 if (resultStatus != null) {
-                    if (UnspayStatus.HANDDING.getCode().equals(resultStatus)) {
+                    if (UnspayZCGDStatus.ZCGD_HANDDING.getCode().equals(resultStatus) || resultStatus.equals(UnspayZCGDStatus.ZCGD_SUCCESS.getCode())) {
                         process++;
-                    } else if (resultStatus.equals(UnspayStatus.SUCCESS.getCode())) {
+                    } else if (resultStatus.equals(UnspayZCGDStatus.ZCGD_TRADE_SUCCESS.getCode())) {
                         success++;
                     } else {
                         failur++;
@@ -214,5 +157,24 @@ public class FourElementsPayServiceImpl implements IFourElementsPayService
 			//根据返回结果修改实时代付表数据
 			unspayFourElementsPayMapper.updateByPrimaryKey(unspayFourElementsPay);
 		}
+	}
+
+	@Override
+	public boolean saveZCGDPayResult(UnspayFourElementsPay unspayFourElementsPay)
+	{
+		 //保存结果
+		unspayFourElementsPayMapper.updateCallbackResult(unspayFourElementsPay);
+        logger.info("订单编号：" + unspayFourElementsPay.getOrderId() + "保存支付结果" + JSON.toJSONString(unspayFourElementsPay));
+        return true;
+	}
+
+	@Override
+	public UnspayFourElementsPayResponse queryOrderStatusRemote(UnspayFourElementsPay unspayFourElementsPay)
+	{
+		UnspayFourElementsPayRequest UnspayPayRequest = new UnspayFourElementsPayRequest();
+        UnspayPayRequest.setOrderId(unspayFourElementsPay.getOrderId());
+        UnspayPayRequest.setMessageType(UnspayFourElementsPayMessageType.ZCGD_QUERYORDER.getCode());
+        logger.info("订单编号：" + unspayFourElementsPay.getOrderId() + "，远程同步查询支付结果" + JSON.toJSONString(unspayFourElementsPay));
+        return (UnspayFourElementsPayResponse) syncSend(UnspayPayRequest);
 	} 
 }

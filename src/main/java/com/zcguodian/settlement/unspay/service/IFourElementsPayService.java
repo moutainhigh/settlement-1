@@ -10,12 +10,11 @@ import com.zcguodian.settlement.unspay.model.UnspayFourElementsPayResponse;
 
 public interface IFourElementsPayService
 {
-	String fourElementsPay(String result);
-	
-	String queryOrderStatus(Long orderId);
-	
-	String queryBlance();
-	
+	/**
+	 * 获取实时代付上传记录页
+	 * @param searchConditions
+	 * @param page
+	 */
 	void getZCGDUploadListPage(HashMap<String, Object> searchConditions, Page<Map<String, Object>> page);
 	
 	/**
@@ -31,7 +30,7 @@ public interface IFourElementsPayService
      * @param unspayPay
      * @return PayResponse包含status desc属性
      */
-//    UnspayFourElementsPayResponse queryOrderStatusRemote(UnspayFourElementsPay unspayFourElementsPay);
+    UnspayFourElementsPayResponse queryOrderStatusRemote(UnspayFourElementsPay unspayFourElementsPay);
 	
 	/**
      * 代付列表页面
@@ -53,6 +52,14 @@ public interface IFourElementsPayService
      * @return
      */
     List<Map<String, Object>> uploadZCGDFileDetail(String filename);
+    
+    /**
+     * 保存实时代付结果,用于发送实时代付请求的回调
+     *
+     * @param unspayPay
+     * @return
+     */
+    boolean saveZCGDPayResult(UnspayFourElementsPay unspayFourElementsPay);
     
     /**
      * 拒绝代付

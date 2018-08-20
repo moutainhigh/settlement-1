@@ -17,6 +17,6 @@ public class TestQueryOrderStatus extends BaseTest
 	@Test
 	public void queryOrderStatus()
 	{
-		fourElementsPayService.queryOrderStatus(1532334760311L);
+//		fourElementsPayService.queryOrderStatus(1532334760311L);
 	}
 }

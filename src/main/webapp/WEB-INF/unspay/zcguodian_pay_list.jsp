@@ -84,7 +84,7 @@
                   </li>
                   <li style="margin-left:0px;">
                       <button id="search_pay_list_btn" style="margin-left:50px;margin-right:20px;width:80px;">搜索</button>
-                      <button id="download_pay_list_btn" style="margin-left:20px;margin-right:50px;width:80px;"><a style="color: black;" href="${ctx}/unspay/payDownload?${search_params}">导出</a></button>
+                      <button id="download_pay_list_btn" style="margin-left:20px;margin-right:50px;width:80px;"><a style="color: black;" href="${ctx}/zcgdUnspay/payDownload?${search_params}">导出</a></button>
                   </li>
               </ul>
           </form>

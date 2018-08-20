@@ -21,10 +21,10 @@ import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
 public interface UnspayFourElementsPayMapper {
     /**
      *
-     * @mbggenerated 2018-07-30
+     * 插入一条实时代付记录
      */
     @Insert({
-        "insert into unspay_zcgd_pay (filename, ",
+        "INSERT INTO unspay_zcgd_pay (filename, ",
         "uploadDate, operator, ",
         "auditor, loanApplyId, ",
         "name, cardNo, amount, ",
@@ -136,6 +136,23 @@ public interface UnspayFourElementsPayMapper {
     })
     void changePayStatusAndDesc(@Param("orderId") Integer orderId, @Param("payResult") String payResult, @Param("desc") String desc);
 
+    @Update({
+        "UPDATE unspay_zcgd_pay",
+        "SET responseDate = #{responseDate,jdbcType=TIMESTAMP},",
+        "payResult = #{payResult,jdbcType=VARCHAR},",
+        "`desc` = #{desc,jdbcType=VARCHAR}",
+        "WHERE orderId = #{orderId,jdbcType=INTEGER}"
+    })
+    int updateCallbackResult(UnspayFourElementsPay record);
+    
+    @Update({
+        "UPDATE unspay_zcgd_pay",
+        "SET sendDate = #{sendDate,jdbcType=TIMESTAMP},",
+        "payResult = #{payResult,jdbcType=VARCHAR},",
+        "`desc` = #{desc,jdbcType=VARCHAR}",
+        "WHERE orderId = #{orderId,jdbcType=INTEGER}"
+    })
+    int updateSendResult(UnspayFourElementsPay record);
     
     //获取实时代付上传记录数
     @SelectProvider(type = UnspayFourElementsPaySqlProvider.class, method = "selectFEPayUploadCount")
@@ -145,13 +162,19 @@ public interface UnspayFourElementsPayMapper {
     @SelectProvider(type = UnspayFourElementsPaySqlProvider.class, method = "selectFEPayUploadList")
     List<Map<String, Object>> selectFEPayUploadList(HashMap<String, Object> searchConditions);
     
+    /**
+     * 根据上传文件名获取列表
+     * @param filename
+     * @return
+     */
     @Select({
-        "select",
+        "SELECT",
         "orderId, filename, uploadDate, operator, auditor, loanApplyId, name, cardNo, ",
         "amount, purpose, idCardNo, summary, phoneNo, verifyStatus, sendDate, ",
         "responseDate, payResult, `desc`",
-        "from unspay_zcgd_pay",
-        "where filename = #{filename,jdbcType=VARCHAR}"
+        "FROM unspay_zcgd_pay",
+        "WHERE filename = #{filename,jdbcType=VARCHAR}",
+        "ORDER BY orderId DESC"
     })
     @Results({
         @Result(column="orderId", property="orderId", jdbcType=JdbcType.INTEGER, id=true),
@@ -177,19 +200,21 @@ public interface UnspayFourElementsPayMapper {
     
     //根据上传文件名获取列表
     @Select({
-        "select",
+        "SELECT",
         "orderId, filename, uploadDate, operator, auditor, loanApplyId, name, cardNo, ",
         "amount, purpose, idCardNo, summary, phoneNo, verifyStatus, sendDate, ",
         "responseDate, payResult, `desc`",
-        "from unspay_zcgd_pay",
-        "where filename = #{filename,jdbcType=VARCHAR}",
+        "FROM unspay_zcgd_pay",
+        "WHERE filename = #{filename,jdbcType=VARCHAR}",
         "ORDER BY orderId DESC"
     })
     List<Map<String, Object>> selectZCGDPayMapListByFileName(String filename);
     
+    //获取列表数
     @SelectProvider(type = UnspayFourElementsPaySqlProvider.class, method = "selectFEPayListCount")
     Long selectFEPayListCount(HashMap<String, Object> searchConditions);
 
+    //根据查询条件获取列表
     @SelectProvider(type = UnspayFourElementsPaySqlProvider.class, method = "selectFEPayList")
     List<Map<String, Object>> selectFEPayList(HashMap<String, Object> searchConditions);
     

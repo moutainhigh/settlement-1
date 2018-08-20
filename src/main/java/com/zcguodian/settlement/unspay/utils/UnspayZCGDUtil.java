@@ -80,7 +80,7 @@ public class UnspayZCGDUtil {
     }
 
     /**
-     * 代付
+     * 实时代付
      *
      * @param unspayFourElementsPay
      * @return
