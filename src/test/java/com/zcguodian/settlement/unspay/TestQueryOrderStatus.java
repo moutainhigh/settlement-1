@@ -4,7 +4,9 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.fastjson.JSON;
 import com.zcguodian.settlement.BaseTest;
+import com.zcguodian.settlement.unspay.model.UnspayFourElementsPay;
 import com.zcguodian.settlement.unspay.service.IFourElementsPayService;
 
 public class TestQueryOrderStatus extends BaseTest
@@ -17,6 +19,9 @@ public class TestQueryOrderStatus extends BaseTest
 	@Test
 	public void queryOrderStatus()
 	{
-//		fourElementsPayService.queryOrderStatus(1532334760311L);
+		int orderId = 1;
+		UnspayFourElementsPay payByOrderId = fourElementsPayService.getPayByOrderId(orderId);
+		logger.info("实时代付对象:" + JSON.toJSONString(payByOrderId));
+		fourElementsPayService.queryOrderStatusRemote(payByOrderId);
 	}
 }
